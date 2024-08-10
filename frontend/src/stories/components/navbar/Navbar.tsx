@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Button } from "../button/Button";
+import { IconButton } from "../button/IconButton";
 
 export const navbarVariants = cva([
   "flex",
@@ -25,10 +26,10 @@ export const Navbar = ({ isDarkMode, toggleDarkMode }: NavbarProps) => {
     <nav className={NavbarClass}>
       <div className={SideClass}>LOGO</div>
       <div className={SideClass}>
-        <Button
-          children={isDarkMode ? "Dark" : "Light"}
-          variant="primary"
-          size="small"
+        <IconButton
+          icon={isDarkMode ? "faMoon" : "faSun"}
+          variant="text"
+          size="large"
           onClick={toggleDarkMode}
         />
         <Button children="Zarejestruj się" variant="primary" size="small" />
