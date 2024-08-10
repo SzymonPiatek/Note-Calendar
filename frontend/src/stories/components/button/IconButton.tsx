@@ -1,6 +1,9 @@
 import { ComponentPropsWithoutRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 export const buttonVariants = cva(
   [
@@ -51,9 +54,9 @@ export const buttonVariants = cva(
         text: ["bg-transparent", "border-transparent", "shadow-none"],
       },
       size: {
-        small: ["text-xs", "px-2", "py-1"],
-        medium: ["text-sm", "px-2.5", "py-1.5"],
-        large: ["text-sm", "px-3", "py-2"],
+        small: ["px-2", "py-1", "gap-1"],
+        medium: ["px-2.5", "py-1.5", "gap-2"],
+        large: ["px-3", "py-2", "gap-2"],
       },
       disabled: {
         true: ["opacity-50", "cursor-not-allowed", "pointer-events-none"],
@@ -63,12 +66,25 @@ export const buttonVariants = cva(
   }
 );
 
+export const labelVariants = cva(["flex", "justify-center"], {
+  variants: {
+    size: {
+      small: ["text-xs"],
+      medium: ["text-sm"],
+      large: ["text-sm"],
+    },
+  },
+  defaultVariants: {
+    size: "medium",
+  },
+});
+
 export const iconVariants = cva(["flex", "justify-center"], {
   variants: {
     size: {
-      small: ["w-2", "text-xs"],
-      medium: ["w-3", "text-base"],
-      large: ["w-4", "text-lg"],
+      small: ["text-xs"],
+      medium: ["text-sm"],
+      large: ["text-sm"],
     },
   },
   defaultVariants: {
@@ -81,35 +97,55 @@ type ButtonVariants = VariantProps<typeof buttonVariants>;
 type ButtonProps = ComponentPropsWithoutRef<"button"> &
   ButtonVariants & {
     href?: never;
+    children?: never;
   };
 
 type AnchorProps = ComponentPropsWithoutRef<"a"> &
   ButtonVariants & {
     href?: string;
+    children?: never;
   };
 
-type ButtonOrLinkProps = ButtonProps | AnchorProps;
+type ButtonOrLinkProps = (ButtonProps | AnchorProps) & {
+  icon: string;
+  label: string;
+};
 
-export const Button = ({
+export const IconButton = ({
   variant = "primary",
   size = "medium",
   disabled = false,
+  label = "IconButton",
+  icon = "faCoffee",
   ...props
 }: ButtonOrLinkProps) => {
   const buttonClass = clsx(buttonVariants({ variant, size, disabled }));
+  const iconClass = clsx(iconVariants({ size }));
+  const labelClass = clsx(labelVariants({ size }));
+
+  const thisIcon: IconDefinition | undefined =
+    (Icons[icon as keyof typeof Icons] as IconDefinition) || Icons.faQuestion;
+
+  if (!thisIcon) {
+    console.warn(`Icon "${thisIcon}" not found`);
+    return null;
+  }
 
   if (props.href) {
     return (
-      <a
-        className={buttonClass}
-        {...(props as ComponentPropsWithoutRef<"a">)}
-      />
+      <a className={buttonClass} {...(props as ComponentPropsWithoutRef<"a">)}>
+        <FontAwesomeIcon icon={thisIcon} className={iconClass} />
+        <p className={labelClass}>{label}</p>
+      </a>
     );
   }
   return (
     <button
       className={buttonClass}
       {...(props as ComponentPropsWithoutRef<"button">)}
-    />
+    >
+      <FontAwesomeIcon icon={thisIcon} className={iconClass} />
+      <p className={labelClass}>{label}</p>
+    </button>
   );
 };
