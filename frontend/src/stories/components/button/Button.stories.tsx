@@ -2,16 +2,47 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 
 const meta = {
-  title: "Components/Button",
+  title: "ATOMS/buttons/Button",
   component: Button,
-  args: {},
+  args: {
+    children: "Label",
+    size: "medium",
+    variant: "primary",
+    disabled: false,
+  },
   argTypes: {
     children: {
       name: "Label",
-      control: { type: "text" },
-      description: "Text to display on the button",
+      description: "Label of the button",
+      control: {
+        type: "text",
+      },
       table: {
-        disable: false,
+        defaultValue: {
+          summary: "Label",
+        },
+      },
+    },
+    variant: {
+      name: "Variant",
+      control: { type: "select" },
+      description: "Variant of the button",
+      options: ["primary", "secondary", "outline", "text"],
+      table: {
+        defaultValue: {
+          summary: "primary",
+        },
+      },
+    },
+    size: {
+      name: "Size",
+      control: { type: "select" },
+      description: "Size of the button",
+      options: ["small", "medium", "large"],
+      table: {
+        defaultValue: {
+          summary: "medium",
+        },
       },
     },
     disabled: {
@@ -30,4 +61,51 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = {};
+export const Small: Story = {
+  args: {
+    size: "small",
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    size: "medium",
+  },
+};
+
+export const Large: Story = {
+  args: {
+    size: "large",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    size: "medium",
+    disabled: true,
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    variant: "primary",
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+  },
+};
+
+export const Text: Story = {
+  args: {
+    variant: "text",
+  },
+};

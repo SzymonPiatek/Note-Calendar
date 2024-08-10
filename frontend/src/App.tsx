@@ -4,7 +4,7 @@ import { Button } from "./stories/components/button/Button";
 function App() {
   return (
     <>
-      <Button>Przycisk</Button>
+      <Button size="medium" children="Przycisk" />
     </>
   );
 }
