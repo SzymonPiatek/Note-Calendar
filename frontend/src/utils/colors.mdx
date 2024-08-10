@@ -1,0 +1,13 @@
+import { Meta, ColorPalette, ColorItem, Title } from "@storybook/blocks";
+import { colors } from "../config/colors";
+
+<Meta title="Utils/Colors" />
+<Title>Colors</Title>
+
+The color tokens within this design system encapsulates a rich palette of semantic colors, each with specific roles and shades to cater to various UI elements and states.
+
+<ColorPalette>
+  {Object.entries(colors).map(([name, value]) => (
+    <ColorItem key={name} title={name} colors={value} />
+  ))}
+</ColorPalette>
