@@ -1,8 +1,25 @@
+import {
+  colors,
+  black,
+  currentColor,
+  transparent,
+  white,
+  inherit,
+} from "./src/config/colors";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+export default {
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  darkMode: ["class", '[data-mode="dark"]'],
   theme: {
-    extend: {},
+    colors: {
+      ...colors,
+      white,
+      black,
+      transparent,
+      currentColor,
+      inherit,
+    },
   },
   plugins: [],
 };
