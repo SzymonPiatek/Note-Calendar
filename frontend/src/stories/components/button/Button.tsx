@@ -48,7 +48,7 @@ export const buttonVariants = cva(
           "hover:bg-primary-100",
           "active:bg-primary-100",
         ],
-        text: ["bg-transparent", "border-transparent"],
+        text: ["bg-transparent", "border-transparent", "shadow-none"],
       },
       size: {
         small: ["text-xs", "px-2", "py-1"],
