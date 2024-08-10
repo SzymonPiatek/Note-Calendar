@@ -13,7 +13,6 @@ export const buttonVariants = cva(
     "inline-flex",
     "items-center",
     "cursor-pointer",
-    "shadow-sm",
     "focus-visible:outline",
     "focus-visible:outline-2",
     "focus-visible:outline-offset-2",
@@ -26,6 +25,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
+          "shadow-sm",
           "bg-primary-600",
           "text-white",
           "border-transparent",
@@ -36,6 +36,7 @@ export const buttonVariants = cva(
           "dark:active:bg-primary-300",
         ],
         secondary: [
+          "shadow-sm",
           "bg-secondary-600",
           "text-white",
           "border-transparent",
@@ -45,13 +46,14 @@ export const buttonVariants = cva(
           "dark:active:bg-secondary-500",
         ],
         outline: [
+          "shadow-sm",
           "bg-transparent",
           "text-primary-500",
           "border-primary-500",
           "hover:bg-primary-100",
           "active:bg-primary-100",
         ],
-        text: ["bg-transparent", "border-transparent", "shadow-none"],
+        text: ["bg-transparent", "border-transparent"],
       },
       size: {
         small: ["px-2", "py-1", "gap-1"],
@@ -107,16 +109,16 @@ type AnchorProps = ComponentPropsWithoutRef<"a"> &
   };
 
 type ButtonOrLinkProps = (ButtonProps | AnchorProps) & {
-  icon: string;
-  label: string;
+  icon?: string;
+  label?: string;
 };
 
 export const IconButton = ({
   variant = "primary",
   size = "medium",
   disabled = false,
-  label = "IconButton",
-  icon = "faCoffee",
+  label,
+  icon,
   ...props
 }: ButtonOrLinkProps) => {
   const buttonClass = clsx(buttonVariants({ variant, size, disabled }));
@@ -134,8 +136,8 @@ export const IconButton = ({
   if (props.href) {
     return (
       <a className={buttonClass} {...(props as ComponentPropsWithoutRef<"a">)}>
-        <FontAwesomeIcon icon={thisIcon} className={iconClass} />
-        <p className={labelClass}>{label}</p>
+        {icon && <FontAwesomeIcon icon={thisIcon} className={iconClass} />}
+        {label && <p className={labelClass}>{label}</p>}
       </a>
     );
   }
@@ -144,8 +146,8 @@ export const IconButton = ({
       className={buttonClass}
       {...(props as ComponentPropsWithoutRef<"button">)}
     >
-      <FontAwesomeIcon icon={thisIcon} className={iconClass} />
-      <p className={labelClass}>{label}</p>
+      {icon && <FontAwesomeIcon icon={thisIcon} className={iconClass} />}
+      {label && <p className={labelClass}>{label}</p>}
     </button>
   );
 };
