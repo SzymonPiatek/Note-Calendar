@@ -81,18 +81,23 @@ type ButtonVariants = VariantProps<typeof buttonVariants>;
 type ButtonProps = ComponentPropsWithoutRef<"button"> &
   ButtonVariants & {
     href?: never;
+    children?: never;
   };
 
 type AnchorProps = ComponentPropsWithoutRef<"a"> &
   ButtonVariants & {
     href?: string;
+    children?: never;
   };
 
-type ButtonOrLinkProps = ButtonProps | AnchorProps;
+type ButtonOrLinkProps = (ButtonProps | AnchorProps) & {
+  label: string;
+};
 
 export const Button = ({
   variant = "primary",
   size = "medium",
+  label,
   disabled = false,
   ...props
 }: ButtonOrLinkProps) => {
@@ -100,16 +105,17 @@ export const Button = ({
 
   if (props.href) {
     return (
-      <a
-        className={buttonClass}
-        {...(props as ComponentPropsWithoutRef<"a">)}
-      />
+      <a className={buttonClass} {...(props as ComponentPropsWithoutRef<"a">)}>
+        {label}
+      </a>
     );
   }
   return (
     <button
       className={buttonClass}
       {...(props as ComponentPropsWithoutRef<"button">)}
-    />
+    >
+      {label}
+    </button>
   );
 };

@@ -96,7 +96,7 @@ export const Disabled: Story = {
   args: {
     size: "medium",
     disabled: true,
-    icon: "faUser"
+    icon: "faUser",
   },
 };
 

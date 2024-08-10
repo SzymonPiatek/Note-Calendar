@@ -5,13 +5,13 @@ const meta = {
   title: "ATOMS/buttons/Button",
   component: Button,
   args: {
-    children: "Label",
+    label: "Label",
     size: "medium",
     variant: "primary",
     disabled: false,
   },
   argTypes: {
-    children: {
+    label: {
       name: "Label",
       description: "Label of the button",
       control: {

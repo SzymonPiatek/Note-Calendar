@@ -24,7 +24,7 @@ export const Navbar = ({ isDarkMode, toggleDarkMode }: NavbarProps) => {
 
   return (
     <nav className={NavbarClass}>
-      <div className={SideClass}>LOGO</div>
+      <div className={SideClass}>Example</div>
       <div className={SideClass}>
         <IconButton
           icon={isDarkMode ? "faMoon" : "faSun"}
@@ -32,8 +32,8 @@ export const Navbar = ({ isDarkMode, toggleDarkMode }: NavbarProps) => {
           size="large"
           onClick={toggleDarkMode}
         />
-        <Button children="Zarejestruj się" variant="primary" size="small" />
-        <Button children="Zaloguj się" variant="primary" size="small" />
+        <Button label="Zarejestruj się" variant="primary" size="medium" />
+        <Button label="Zaloguj się" variant="primary" size="medium" />
       </div>
     </nav>
   );

@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <Button size="medium" children="Przycisk" />
+      <Button variant="primary" size="medium" label="Przycisk" />
     </>
   );
 }
