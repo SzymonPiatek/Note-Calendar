@@ -1,6 +1,9 @@
 import { ComponentPropsWithoutRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 export const buttonVariants = cva(
   [
@@ -60,6 +63,32 @@ export const buttonVariants = cva(
   }
 );
 
+export const labelVariants = cva(["flex", "justify-center"], {
+  variants: {
+    size: {
+      small: ["text-xs"],
+      medium: ["text-sm"],
+      large: ["text-sm"],
+    },
+  },
+  defaultVariants: {
+    size: "medium",
+  },
+});
+
+export const iconVariants = cva(["flex", "justify-center"], {
+  variants: {
+    size: {
+      small: ["text-xs", "py-1"],
+      medium: ["text-sm", "py-1"],
+      large: ["text-base", "py-0.5"],
+    },
+  },
+  defaultVariants: {
+    size: "medium",
+  },
+});
+
 type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 type ButtonProps = ComponentPropsWithoutRef<"button"> &
@@ -75,22 +104,35 @@ type AnchorProps = ComponentPropsWithoutRef<"a"> &
   };
 
 type ButtonOrLinkProps = (ButtonProps | AnchorProps) & {
-  label: string;
+  icon?: string;
+  label?: string;
 };
 
-export const Button = ({
+export const IconButton = ({
   variant = "primary",
   size = "medium",
-  label,
   disabled = false,
+  label,
+  icon,
   ...props
 }: ButtonOrLinkProps) => {
   const buttonClass = clsx(buttonVariants({ variant, size, disabled }));
+  const iconClass = clsx(iconVariants({ size }));
+  const labelClass = clsx(labelVariants({ size }));
+
+  const thisIcon: IconDefinition | undefined =
+    (Icons[icon as keyof typeof Icons] as IconDefinition) || Icons.faQuestion;
+
+  if (!thisIcon) {
+    console.warn(`Icon "${thisIcon}" not found`);
+    return null;
+  }
 
   if (props.href) {
     return (
       <a className={buttonClass} {...(props as ComponentPropsWithoutRef<"a">)}>
-        {label}
+        {icon && <FontAwesomeIcon icon={thisIcon} className={iconClass} />}
+        {label && <p className={labelClass}>{label}</p>}
       </a>
     );
   }
@@ -99,7 +141,8 @@ export const Button = ({
       className={buttonClass}
       {...(props as ComponentPropsWithoutRef<"button">)}
     >
-      {label}
+      {icon && <FontAwesomeIcon icon={thisIcon} className={iconClass} />}
+      {label && <p className={labelClass}>{label}</p>}
     </button>
   );
 };

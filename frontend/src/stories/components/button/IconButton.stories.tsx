@@ -1,28 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "./Button";
+import { IconButton } from "./IconButton";
 
 const meta = {
-  title: "ATOMS/buttons/Button",
-  component: Button,
+  title: "ATOMS/buttons/IconButton",
+  component: IconButton,
   args: {
-    label: "Label",
-    size: "medium",
     variant: "primary",
+    size: "medium",
+    label: "Label",
+    icon: "faCoffee",
     disabled: false,
   },
   argTypes: {
-    label: {
-      name: "Label",
-      description: "Label of the button",
-      control: {
-        type: "text",
-      },
-      table: {
-        defaultValue: {
-          summary: "Label",
-        },
-      },
-    },
     variant: {
       name: "Variant",
       control: { type: "select" },
@@ -45,6 +34,30 @@ const meta = {
         },
       },
     },
+    label: {
+      name: "Label",
+      description: "Label of the button",
+      control: {
+        type: "text",
+      },
+      table: {
+        defaultValue: {
+          summary: "Label",
+        },
+      },
+    },
+    icon: {
+      name: "Icon",
+      description: "Icon of the button",
+      control: {
+        type: "text",
+      },
+      table: {
+        defaultValue: {
+          summary: "faCoffee",
+        },
+      },
+    },
     disabled: {
       name: "Disabled",
       control: { type: "boolean" },
@@ -56,10 +69,10 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof IconButton>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof IconButton>;
 
 export const Small: Story = {
   args: {
@@ -83,6 +96,7 @@ export const Disabled: Story = {
   args: {
     size: "medium",
     disabled: true,
+    icon: "faUser",
   },
 };
 

@@ -1,0 +1,18 @@
+.login {
+  height: calc(100dvh - 80px);
+  width: 100%;
+  translate: 0 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.login--container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.navbar {
+  max-height: 80px;
+}

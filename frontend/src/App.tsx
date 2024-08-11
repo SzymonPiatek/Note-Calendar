@@ -1,11 +1,29 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
-import { Button } from "./stories/components/button/Button";
+import { Navbar } from "./sections/Navbar";
+import { LoginPage } from "./pages/LoginPage";
 
 function App() {
+  const user = false;
+
   return (
-    <>
-      <Button>Przycisk</Button>
-    </>
+    <Router>
+      <main>
+        <Navbar />
+        <Routes>
+          {/* Public */}
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" replace /> : <LoginPage />}
+          />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 

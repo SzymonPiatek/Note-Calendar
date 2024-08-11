@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "./Button";
+import { Input } from "./Input";
 
 const meta = {
-  title: "ATOMS/buttons/Button",
-  component: Button,
+  title: "ATOMS/inputs/Input",
+  component: Input,
   args: {
-    label: "Label",
+    label: "label",
+    placeholder: "placeholder",
     size: "medium",
-    variant: "primary",
     disabled: false,
+    required: false,
   },
   argTypes: {
     label: {
-      name: "Label",
-      description: "Label of the button",
+      description: "Label of the input",
       control: {
         type: "text",
       },
@@ -23,21 +23,21 @@ const meta = {
         },
       },
     },
-    variant: {
-      name: "Variant",
-      control: { type: "select" },
-      description: "Variant of the button",
-      options: ["primary", "secondary", "outline", "text"],
+    placeholder: {
+      description: "placeholder of the input",
+      control: {
+        type: "text",
+      },
       table: {
         defaultValue: {
-          summary: "primary",
+          summary: "placeholder",
         },
       },
     },
     size: {
       name: "Size",
       control: { type: "select" },
-      description: "Size of the button",
+      description: "Size of the input",
       options: ["small", "medium", "large"],
       table: {
         defaultValue: {
@@ -45,10 +45,20 @@ const meta = {
         },
       },
     },
+    required: {
+      name: "Required",
+      control: { type: "boolean" },
+      description: "Is input required",
+      table: {
+        defaultValue: {
+          summary: "false",
+        },
+      },
+    },
     disabled: {
       name: "Disabled",
       control: { type: "boolean" },
-      description: "Disables the button",
+      description: "Disables the input",
       table: {
         defaultValue: {
           summary: "false",
@@ -56,10 +66,10 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Input>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Input>;
 
 export const Small: Story = {
   args: {
@@ -81,31 +91,12 @@ export const Large: Story = {
 
 export const Disabled: Story = {
   args: {
-    size: "medium",
     disabled: true,
   },
 };
 
-export const Primary: Story = {
+export const Required: Story = {
   args: {
-    variant: "primary",
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    variant: "secondary",
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    variant: "outline",
-  },
-};
-
-export const Text: Story = {
-  args: {
-    variant: "text",
+    required: true,
   },
 };

@@ -7,11 +7,21 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "test-storybook": "test-storybook",
+    "serve-storybook": "http-server storybook-static -p 6006",
+    "build-storybook": "storybook build",
+    "prod-storybook": "npm run build-storybook && npm run serve-storybook",
+    "tsc": "tsc --watch"
   },
   "dependencies": {
+    "@fontsource/lato": "^5.0.21",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
     "storybook": "^8.2.8"
   },
   "devDependencies": {
