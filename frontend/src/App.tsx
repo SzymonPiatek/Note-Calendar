@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
-import { Button } from "./stories/components/button/Button";
-import { Navbar } from "./stories/components/navbar/Navbar";
+import { Navbar } from "./sections/Navbar";
+import { LoginPage } from "./pages/LoginPage";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.setAttribute("data-mode", "dark");
-    } else {
-      document.documentElement.setAttribute("data-mode", "light");
-    }
-  }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const user = false;
 
   return (
-    <>
-      <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <Button variant="primary" size="medium" label="Przycisk" />
-    </>
+    <Router>
+      <main>
+        <Navbar />
+        <Routes>
+          {/* Public */}
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" replace /> : <LoginPage />}
+          />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 

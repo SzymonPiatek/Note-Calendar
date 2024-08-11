@@ -12,6 +12,7 @@ export const buttonVariants = cva(
     "rounded",
     "inline-flex",
     "items-center",
+    "justify-center",
     "cursor-pointer",
     "focus-visible:outline",
     "focus-visible:outline-2",
@@ -62,7 +63,7 @@ export const buttonVariants = cva(
       },
       disabled: {
         true: ["opacity-50", "cursor-not-allowed", "pointer-events-none"],
-        false: [""],
+        false: [],
       },
     },
   }

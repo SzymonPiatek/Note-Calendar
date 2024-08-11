@@ -10,6 +10,7 @@ export const buttonVariants = cva(
     "inline-flex",
     "items-center",
     "cursor-pointer",
+    "justify-center",
     "shadow-sm",
     "focus-visible:outline",
     "focus-visible:outline-2",
@@ -57,24 +58,11 @@ export const buttonVariants = cva(
       },
       disabled: {
         true: ["opacity-50", "cursor-not-allowed", "pointer-events-none"],
-        false: [""],
+        false: [],
       },
     },
   }
 );
-
-export const iconVariants = cva(["flex", "justify-center"], {
-  variants: {
-    size: {
-      small: ["w-2", "text-xs"],
-      medium: ["w-3", "text-base"],
-      large: ["w-4", "text-lg"],
-    },
-  },
-  defaultVariants: {
-    size: "medium",
-  },
-});
 
 type ButtonVariants = VariantProps<typeof buttonVariants>;
 

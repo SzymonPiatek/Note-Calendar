@@ -1,0 +1,11 @@
+.login {
+  height: calc(100dvh - 80px);
+  width: 100%;
+  translate: 0 0%;
+  display: flex;
+  padding: 2rem;
+}
+
+.navbar {
+  max-height: 80px;
+}
