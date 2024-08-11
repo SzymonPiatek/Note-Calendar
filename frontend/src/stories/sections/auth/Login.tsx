@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Input } from "../../components/input/Input";
 import { Button } from "../../components/button/Button";
-import { Heading } from "../../components/header/Heading";
+import { Heading } from "../../components/heading/Heading";
 
 export const containerVariants = cva([
   "w-full",
@@ -11,13 +11,14 @@ export const containerVariants = cva([
   "place-items-center",
   "justify-center",
   "gap-8",
+  "p-12",
+  "rounded-xl",
   "border",
   "border-2",
   "border-black",
+  "bg-light-600",
+  "dark:bg-light-900",
   "dark:border-white",
-  "rounded-xl",
-  "p-12",
-  "bg-light-900",
 ]);
 
 export const formVariants = cva([

@@ -32,16 +32,16 @@ export const labelVariants = cva(
     "absolute",
     "inset-x-0",
     "bottom-0",
-    "text-shadow-50",
+    "text-shadow-900",
     "-z-10",
     "dark:text-light-100",
   ],
   {
     variants: {
       size: {
-        small: ["text-xs", "px-0.5", "-top-4"],
+        small: ["text-xs", "px-1", "-top-4"],
         medium: ["text-sm", "px-1", "-top-5"],
-        large: ["text-lg", "px-2", "-top-6"],
+        large: ["text-lg", "px-1", "-top-6"],
       },
     },
     defaultVariants: {
