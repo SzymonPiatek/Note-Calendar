@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - ./envs/.env
+    networks:
+      - internal
+    command: npm start
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./envs/.env
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - internal
+
+  proxy:
+    image: nginx:latest
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+      - internal
+
+volumes:
+  db_volume:
+
+networks:
+  internal:
+    driver: bridge
