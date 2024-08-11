@@ -11,8 +11,8 @@ export async function registerHandler(req: Request, res: Response) {
       lastName,
       email,
       password,
-      isActive = false,
-      isSuperuser = false,
+      isActive,
+      isSuperuser,
     }: User = req.body;
 
     const isEmailAlreadyExist: User | null = await prisma.user.findUnique({
