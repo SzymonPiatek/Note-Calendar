@@ -84,9 +84,9 @@ export const labelVariants = cva(["flex", "justify-center"], {
 export const iconVariants = cva(["flex", "justify-center"], {
   variants: {
     size: {
-      small: ["text-xs"],
-      medium: ["text-sm"],
-      large: ["text-base"],
+      small: ["text-xs", "py-1"],
+      medium: ["text-sm", "py-1"],
+      large: ["text-base", "py-0.5"],
     },
   },
   defaultVariants: {
