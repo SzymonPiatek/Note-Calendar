@@ -6,9 +6,10 @@ import { IconButton } from "../../components/button/IconButton";
 export const navbarVariants = cva([
   "h-full",
   "flex",
-  "bg-primary-700",
+  "bg-tertiary-900",
   "justify-between",
   "text-white",
+  "dark:bg-shadow-500",
 ]);
 
 export const sideVariants = cva(["p-2", "flex", "gap-2", "place-items-center"]);
