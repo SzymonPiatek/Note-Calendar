@@ -2,10 +2,17 @@ import { ComponentPropsWithoutRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 
-export const containerVariants = cva([]);
+export const containerVariants = cva(["w-full", "relative"]);
 
 export const inputVariants = cva(
-  ["border", "rounded", "w-full", "bg-inherit"],
+  [
+    "w-full",
+    "border",
+    "rounded",
+    "bg-inherit",
+    "border-black",
+    "dark:border-white",
+  ],
   {
     variants: {
       size: {
@@ -20,22 +27,50 @@ export const inputVariants = cva(
   }
 );
 
+export const labelVariants = cva(
+  [
+    "absolute",
+    "inset-x-0",
+    "bottom-0",
+    "text-shadow-50",
+    "-z-10",
+    "dark:text-light-100",
+  ],
+  {
+    variants: {
+      size: {
+        small: ["text-xs", "px-0.5", "-top-4"],
+        medium: ["text-sm", "px-1", "-top-5"],
+        large: ["text-lg", "px-2", "-top-6"],
+      },
+    },
+    defaultVariants: {
+      size: "medium",
+    },
+  }
+);
+
 type InputVariants = VariantProps<typeof inputVariants>;
 
 type InputProps = InputVariants & {
+  label: string;
   disabled?: boolean;
   required?: boolean;
   placeholder?: string;
+  type?: string;
 };
 
 export const Input = ({
+  label,
   size = "medium",
   disabled = false,
   required = false,
+  type = "text",
   ...props
 }: InputProps) => {
   const containerClass = clsx(containerVariants());
   const inputClass = clsx(inputVariants({ size }));
+  const labelClass = clsx(labelVariants({ size }));
 
   return (
     <div className={containerClass}>
@@ -43,8 +78,10 @@ export const Input = ({
         className={inputClass}
         disabled={disabled}
         required={required}
+        type={type}
         {...(props as ComponentPropsWithoutRef<"input">)}
       />
+      <label className={labelClass}>{label}</label>
     </div>
   );
 };

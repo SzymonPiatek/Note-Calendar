@@ -4,12 +4,13 @@ import { Button } from "../../components/button/Button";
 import { IconButton } from "../../components/button/IconButton";
 
 export const navbarVariants = cva([
+  "shadow-sm",
   "h-full",
   "flex",
-  "bg-tertiary-900",
+  "bg-shadow-900",
   "justify-between",
   "text-white",
-  "dark:bg-shadow-500",
+  "dark:bg-shadow-700",
 ]);
 
 export const sideVariants = cva(["p-2", "flex", "gap-2", "place-items-center"]);

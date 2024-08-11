@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-tertiary-800 text-white;
-  @apply dark:bg-shadow-900;
+  @apply bg-white text-black;
+  @apply dark:bg-shadow-900 dark:text-white;
 }
