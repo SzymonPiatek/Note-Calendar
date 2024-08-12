@@ -1,7 +1,16 @@
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { useState } from "react";
-import { format, addMonths, subMonths } from "date-fns";
+import {
+  format,
+  addMonths,
+  subMonths,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+} from "date-fns";
 import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
 import { IconButton } from "../button/IconButton";
@@ -19,15 +28,10 @@ export const containerVariants = cva([
   "rounded",
 ]);
 
-export const calendarVariants = cva(["flex", "flex-col", "gap-2"]);
-
 export const Calendar = () => {
   const containerClass = clsx(containerVariants());
-  const calendarClass = clsx(calendarVariants());
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
-  const daysOfWeek = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -39,6 +43,43 @@ export const Calendar = () => {
 
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
+  };
+
+  const renderDates = () => {
+    const startMonth = startOfMonth(currentMonth);
+    const endMonth = endOfMonth(currentMonth);
+    const startDate = startOfWeek(startMonth, { weekStartsOn: 1 });
+    const endDate = endOfWeek(endMonth, { weekStartsOn: 1 });
+
+    const dates = eachDayOfInterval({ start: startDate, end: endDate });
+
+    const daysMap = {
+      Monday: "Poniedziałek",
+      Tuesday: "Wtorek",
+      Wednesday: "Środa",
+      Thursday: "Czwartek",
+      Friday: "Piątek",
+      Saturday: "Sobota",
+      Sunday: "Niedziela",
+    };
+
+    return (
+      <>
+        {dates.map((date) => {
+          const dayNumber = format(date, "d");
+          const dayOfWeek = format(date, "EEEE") as keyof typeof daysMap;
+          const translatedDay = daysMap[dayOfWeek];
+
+          return (
+            <CalendarDay
+              number={dayNumber}
+              weekday={translatedDay}
+              key={date.toString()}
+            />
+          );
+        })}
+      </>
+    );
   };
 
   return (
@@ -64,19 +105,7 @@ export const Calendar = () => {
         </div>
       </div>
       <hr />
-      <div className={calendarClass}>
-        <div className="calendar--days">
-          {daysOfWeek.map((day) => (
-            <Heading key={day} size={4}>
-              {day}
-            </Heading>
-          ))}
-        </div>
-        <div className="calendar--days">
-          <CalendarDay number={1} weekday={"Wtorek"} />
-          <CalendarDay number={2} weekday={"Środa"} />
-        </div>
-      </div>
+      <div className="calendar--days">{renderDates()}</div>
     </div>
   );
 };

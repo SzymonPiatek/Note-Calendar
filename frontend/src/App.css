@@ -32,6 +32,16 @@
   gap: 2rem;
 }
 
+.calendar {
+  padding: 2rem;
+}
+
+.calendar--day h6 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .calendar--days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);

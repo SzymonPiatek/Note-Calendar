@@ -4,5 +4,5 @@
 
 body {
   @apply bg-shadow-300 text-black;
-  @apply dark:bg-shadow-900 dark:text-white;
+  @apply dark:bg-shadow-900 dark:text-light-100;
 }
