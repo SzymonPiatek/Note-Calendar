@@ -31,7 +31,6 @@ export const containerVariants = cva([
   "border",
   "border-2",
   "rounded",
-  "dark:text-light-100",
 ]);
 
 export const Calendar = () => {

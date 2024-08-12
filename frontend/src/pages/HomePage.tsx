@@ -3,8 +3,10 @@ import { Calendar } from "../stories/components/calendar/Calendar";
 import { Notes } from "../stories/components/note/Notes";
 import { apiURL } from "../utils/api";
 import { Note } from "../utils/modelsTypes";
+import { useUser } from "../contexts/UserContext";
 
 const HomePage: React.FC = () => {
+  const { user } = useUser();
   const [notes, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
@@ -12,7 +14,10 @@ const HomePage: React.FC = () => {
       try {
         const response = await fetch(apiURL + `note/all`);
         const data = await response.json();
-        setNotes(data.notes);
+        const filteredNotes = data.notes.filter(
+          (note: Note) => note.userId === user!.id
+        );
+        setNotes(filteredNotes);
       } catch (err) {
         console.error(err);
         setNotes([]);
