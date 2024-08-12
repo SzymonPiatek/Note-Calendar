@@ -21,16 +21,11 @@ export const containerVariants = cva(
   {
     variants: {
       isSameMonth: {
-        true: ["bg-shadow-200", "dark:bg-light-900"],
-        false: [
-          "border-shadow-300",
-          "text-shadow-300",
-          "dark:border-light-700",
-          "dark:text-light-700",
-        ],
+        true: [],
+        false: [],
       },
       isSameDay: {
-        true: ["bg-quaternary-200", "dark:bg-light-500"],
+        true: [],
         false: [],
       },
       isWeekend: {
@@ -38,6 +33,28 @@ export const containerVariants = cva(
         false: [],
       },
     },
+    compoundVariants: [
+      {
+        isWeekend: false,
+        isSameDay: false,
+        isSameMonth: true,
+        className: "bg-shadow-200 dark:bg-light-900",
+      },
+      {
+        isWeekend: true,
+        isSameDay: false,
+        isSameMonth: true,
+        className: "bg-shadow-300 dark:bg-light-700",
+      },
+      {
+        isSameDay: true,
+        className: "bg-tertiary-500 dark:bg-primary-800",
+      },
+      {
+        isSameMonth: false,
+        className: "opacity-50",
+      },
+    ],
   }
 );
 
