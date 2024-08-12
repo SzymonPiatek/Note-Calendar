@@ -10,7 +10,9 @@ const HomePage: React.FC = () => {
   const { user } = useUser();
   const [notes, setNotes] = useState<Note[]>([]);
   const [noteStatuses, setNoteStatuses] = useState<NoteStatus[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    startOfDay(new Date())
+  );
 
   const [noteStatusMap, setNoteStatusMap] = useState<
     Record<number, NoteStatus>
