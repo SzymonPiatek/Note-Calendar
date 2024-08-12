@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="planner">
       <div className="notes">
-        <Notes />
+        <Notes notes={[]} />
       </div>
       <div className="calendar">
         <Calendar />

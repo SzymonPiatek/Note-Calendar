@@ -36,7 +36,7 @@ export const containerVariants = cva(
 type NoteVariants = VariantProps<typeof containerVariants>;
 
 export type NoteProps = NoteVariants & {
-  variant: "common" | "important" | "school" | "work";
+  variant: string;
   label: string;
   buttonLabel: string;
 };

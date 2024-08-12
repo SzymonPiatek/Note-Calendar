@@ -5,6 +5,7 @@ import { Heading } from "../heading/Heading";
 
 export const containerVariants = cva([
   "w-full",
+  "h-full",
   "flex",
   "flex-col",
   "gap-4",
@@ -20,18 +21,21 @@ export const containerVariants = cva([
 
 type NotesVariants = VariantProps<typeof containerVariants>;
 
-export type NotesProps = NotesVariants & {
-  notes: {
-    variant: "common" | "important" | "school" | "work";
-    label: string;
-    buttonLabel: string;
-  }[];
+type note = {
+  variant: "common" | "important" | "school" | "work";
+  label: string;
+  buttonLabel: string;
 };
 
-const exampleNotes = [
+export type NotesProps = NotesVariants & {
+  notes: note[];
+};
+
+const exampleNotes: note[] = [
   { variant: "common", label: "Zrób to", buttonLabel: "Do zrobienia" },
-  { variant: "important", label: "Zrób to", buttonLabel: "Do zrobienia" },
+  { variant: "important", label: "Zrób to", buttonLabel: "Wykonano" },
   { variant: "school", label: "Zrób to", buttonLabel: "Do zrobienia" },
+  { variant: "work", label: "Zrób to", buttonLabel: "Wykonano" },
 ];
 
 export const Notes = ({ notes = exampleNotes }: NotesProps) => {
@@ -40,14 +44,24 @@ export const Notes = ({ notes = exampleNotes }: NotesProps) => {
   return (
     <div className={containerClass}>
       <Heading children="Notatki" size={2} />
-      {notes.map((note) => (
-        <Note
-          key={note.label}
-          variant={note.variant}
-          label={note.label}
-          buttonLabel={note.buttonLabel}
-        />
-      ))}
+      <hr />
+      {notes && (
+        <>
+          {notes.map((note) => (
+            <Note
+              key={note.label}
+              variant={note.variant}
+              label={note.label}
+              buttonLabel={note.buttonLabel}
+            />
+          ))}
+        </>
+      )}
+      {notes.length === 0 && (
+        <div className="flex justify-center py-4">
+          <Heading children="Brak notatek" size={4} />
+        </div>
+      )}
     </div>
   );
 };
