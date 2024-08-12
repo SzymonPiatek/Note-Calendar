@@ -16,3 +16,10 @@
 .navbar {
   max-height: 80px;
 }
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
