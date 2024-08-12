@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { Button } from "../button/Button";
 import { Note as NoteType } from "../../../utils/modelsTypes";
+import { IconButton } from "../button/IconButton";
 
 export const containerVariants = cva(
   [
@@ -36,9 +37,12 @@ export const containerVariants = cva(
 
 type NoteVariants = VariantProps<typeof containerVariants>;
 
-export type NoteProps = NoteVariants & { note: NoteType };
+export type NoteProps = NoteVariants & {
+  note: NoteType;
+  handleDelete: () => void;
+};
 
-export const Note = ({ note }: NoteProps) => {
+export const Note = ({ note, handleDelete }: NoteProps) => {
   const validVariants: NoteVariants["variant"][] = [
     "important",
     "common",
@@ -56,7 +60,15 @@ export const Note = ({ note }: NoteProps) => {
   return (
     <div className={containerClass}>
       <div>{note.name}</div>
-      <Button label={note.status.name} size="medium" variant="secondary" />
+      <div className="flex justify-between gap-2">
+        <Button label={note.status.name} size="medium" variant="secondary" />
+        <IconButton
+          icon="faXmark"
+          size="medium"
+          variant="outline"
+          onClick={handleDelete}
+        />
+      </div>
     </div>
   );
 };
