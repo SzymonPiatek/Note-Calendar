@@ -1,21 +1,11 @@
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
-import React, { useState } from "react";
-import {
-  format,
-  addMonths,
-  subMonths,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  eachDayOfInterval,
-  isSameMonth,
-  isSameDay,
-} from "date-fns";
+import { useState } from "react";
+import { format, addMonths, subMonths } from "date-fns";
 import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
 import { IconButton } from "../button/IconButton";
+import { CalendarDay } from "./CalendarDay";
 
 export const containerVariants = cva([
   "w-full",
@@ -29,7 +19,7 @@ export const containerVariants = cva([
   "rounded",
 ]);
 
-export const calendarVariants = cva(["grid gap-2"]);
+export const calendarVariants = cva(["flex", "flex-col", "gap-2"]);
 
 export const Calendar = () => {
   const containerClass = clsx(containerVariants());
@@ -74,14 +64,18 @@ export const Calendar = () => {
         </div>
       </div>
       <hr />
-      <div className={`calendar ${calendarClass}`}>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
+      <div className={calendarClass}>
+        <div className="calendar--days">
+          {daysOfWeek.map((day) => (
+            <Heading key={day} size={4}>
+              {day}
+            </Heading>
+          ))}
+        </div>
+        <div className="calendar--days">
+          <CalendarDay number={1} weekday={"Wtorek"} />
+          <CalendarDay number={2} weekday={"Środa"} />
+        </div>
       </div>
     </div>
   );

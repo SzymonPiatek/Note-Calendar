@@ -32,11 +32,13 @@
   gap: 2rem;
 }
 
-.calendar {
+.calendar--days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  place-items: center;
+  gap: 0.5rem;
 }
 
-.calendar p {
+.calendar--days p {
   background: orange;
 }
