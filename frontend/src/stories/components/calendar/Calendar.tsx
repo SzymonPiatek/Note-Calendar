@@ -13,6 +13,8 @@ import {
   isSameMonth,
   isSameDay,
   getDay,
+  isBefore,
+  startOfDay,
 } from "date-fns";
 import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
@@ -76,6 +78,7 @@ export const Calendar = () => {
           const isTheSameMonth = isSameMonth(date, currentMonth);
           const isTheSameDay = isSameDay(date, new Date());
           const isWeekend = getDay(date) === 0 || getDay(date) === 6;
+          const isPast = isBefore(startOfDay(date), startOfDay(new Date()));
 
           return (
             <CalendarDay
@@ -84,6 +87,7 @@ export const Calendar = () => {
               isSameMonth={isTheSameMonth}
               isSameDay={isTheSameDay}
               isWeekend={isWeekend}
+              isPast={isPast}
               key={date.toString()}
             />
           );

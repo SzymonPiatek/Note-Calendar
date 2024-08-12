@@ -32,6 +32,10 @@ export const containerVariants = cva(
         true: [],
         false: [],
       },
+      isPast: {
+        true: [],
+        false: [],
+      },
     },
     compoundVariants: [
       {
@@ -52,7 +56,11 @@ export const containerVariants = cva(
       },
       {
         isSameMonth: false,
-        className: "opacity-50",
+        className: "opacity-30",
+      },
+      {
+        isPast: true,
+        className: "opacity-30 pointer-events-none cursor-not-allowed",
       },
     ],
   }
@@ -64,6 +72,7 @@ export type CalendarDayProps = VariantProps<typeof containerVariants> & {
   isSameMonth: boolean;
   isSameDay: boolean;
   isWeekend: boolean;
+  isPast: boolean;
 };
 
 export const CalendarDay = ({
@@ -72,9 +81,10 @@ export const CalendarDay = ({
   isSameMonth = false,
   isSameDay = false,
   isWeekend = false,
+  isPast = false,
 }: CalendarDayProps) => {
   const containerClass = clsx(
-    containerVariants({ isSameMonth, isSameDay, isWeekend })
+    containerVariants({ isSameMonth, isSameDay, isWeekend, isPast })
   );
 
   return (
