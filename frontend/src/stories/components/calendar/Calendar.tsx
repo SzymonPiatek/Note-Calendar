@@ -23,6 +23,7 @@ import { CalendarDay } from "./CalendarDay";
 
 export const containerVariants = cva([
   "w-full",
+  "max-w-4xl",
   "p-4",
   "gap-4",
   "flex",
