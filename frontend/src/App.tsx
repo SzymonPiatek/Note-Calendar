@@ -9,9 +9,10 @@ import { Navbar } from "./sections/Navbar";
 import { LoginPage } from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import PrivateRoute from "./routes/PrivateRoute";
+import { useUser } from "./contexts/UserContext";
 
 function App() {
-  const user = false;
+  const { user } = useUser();
 
   return (
     <Router>

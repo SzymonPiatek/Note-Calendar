@@ -2,6 +2,7 @@ import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Button } from "../../components/button/Button";
 import { IconButton } from "../../components/button/IconButton";
+import { User } from "../../../utils/modelsTypes";
 
 export const navbarVariants = cva([
   "shadow-sm",
@@ -18,9 +19,16 @@ export const sideVariants = cva(["p-2", "flex", "gap-2", "place-items-center"]);
 type NavbarProps = {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
+  user: User | null;
+  handleLogout: () => void;
 };
 
-export const Navbar = ({ isDarkMode, toggleDarkMode }: NavbarProps) => {
+export const Navbar = ({
+  isDarkMode,
+  toggleDarkMode,
+  user,
+  handleLogout,
+}: NavbarProps) => {
   const navbarClass = clsx(navbarVariants());
   const sideClass = clsx(sideVariants());
 
@@ -36,18 +44,38 @@ export const Navbar = ({ isDarkMode, toggleDarkMode }: NavbarProps) => {
           size="large"
           onClick={toggleDarkMode}
         />
-        <Button
-          label="Zarejestruj się"
-          variant="primary"
-          size="medium"
-          href="/register"
-        />
-        <Button
-          label="Zaloguj się"
-          variant="primary"
-          size="medium"
-          href="/login"
-        />
+        {!user && (
+          <>
+            <Button
+              label="Zarejestruj się"
+              variant="primary"
+              size="medium"
+              href="/register"
+            />
+            <Button
+              label="Zaloguj się"
+              variant="primary"
+              size="medium"
+              href="/login"
+            />
+          </>
+        )}
+        {user && (
+          <>
+            <Button
+              label={`${user.firstName} ${user.lastName}`}
+              variant="primary"
+              size="medium"
+              href="/profile"
+            />
+            <Button
+              label="Wyloguj się"
+              variant="primary"
+              size="medium"
+              onClick={handleLogout}
+            />
+          </>
+        )}
       </div>
     </nav>
   );

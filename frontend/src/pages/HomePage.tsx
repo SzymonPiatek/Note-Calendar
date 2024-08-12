@@ -4,11 +4,7 @@ import { useUser } from "../contexts/UserContext";
 const HomePage: React.FC = () => {
   const { user } = useUser();
 
-  return (
-    <div>
-      {user?.firstName} {user?.lastName}
-    </div>
-  );
+  return <div></div>;
 };
 
 export default HomePage;
