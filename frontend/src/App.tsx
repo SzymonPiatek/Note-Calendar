@@ -7,6 +7,8 @@ import {
 import "./App.css";
 import { Navbar } from "./sections/Navbar";
 import { LoginPage } from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   const user = false;
@@ -21,6 +23,11 @@ function App() {
             path="/login"
             element={user ? <Navigate to="/" replace /> : <LoginPage />}
           />
+
+          {/* Logged in user */}
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/" element={<HomePage />} />
+          </Route>
         </Routes>
       </main>
     </Router>
