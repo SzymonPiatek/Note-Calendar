@@ -32,7 +32,7 @@ export async function getNoteStatusByIdHandler(req: Request, res: Response) {
       message: existingNoteStatus
         ? "Note status found"
         : "Note status not found",
-      user: existingNoteStatus,
+      ntoestatus: existingNoteStatus,
     });
   } catch (err) {
     returnError(res, err);

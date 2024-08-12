@@ -41,9 +41,10 @@ type NoteVariants = VariantProps<typeof containerVariants>;
 export type NoteProps = NoteVariants & {
   note: NoteType;
   handleDelete: () => void;
+  handleStatus: () => void;
 };
 
-export const Note = ({ note, handleDelete }: NoteProps) => {
+export const Note = ({ note, handleDelete, handleStatus }: NoteProps) => {
   const validVariants: NoteVariants["variant"][] = [
     "important",
     "common",
@@ -71,7 +72,12 @@ export const Note = ({ note, handleDelete }: NoteProps) => {
     <div className={`note ${containerClass}`}>
       <Heading size={5} children={note.name} />
       <div className="flex justify-between gap-2">
-        <Button label={statusText} size="medium" variant="secondary" />
+        <Button
+          label={statusText}
+          size="medium"
+          variant="secondary"
+          onClick={handleStatus}
+        />
         <IconButton
           icon="faXmark"
           size="medium"

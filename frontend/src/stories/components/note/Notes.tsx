@@ -26,10 +26,16 @@ type NotesVariants = VariantProps<typeof containerVariants>;
 export type NotesProps = NotesVariants & {
   notes: NoteType[] | [];
   handleDelete: (id: number) => void;
+  handleStatus: (id: number) => void;
   date: Date;
 };
 
-export const Notes = ({ notes, handleDelete, date }: NotesProps) => {
+export const Notes = ({
+  notes,
+  handleDelete,
+  date,
+  handleStatus,
+}: NotesProps) => {
   const containerClass = clsx(containerVariants());
 
   const formattedDate = format(date, "dd.MM.yyyy");
@@ -52,9 +58,10 @@ export const Notes = ({ notes, handleDelete, date }: NotesProps) => {
             <>
               {notes.map((note: any) => (
                 <Note
-                  key={note.label}
+                  key={note.id}
                   note={note}
                   handleDelete={() => handleDelete(note.id)}
+                  handleStatus={() => handleStatus(note.id)}
                 />
               ))}
             </>
