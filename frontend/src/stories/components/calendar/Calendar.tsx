@@ -10,6 +10,8 @@ import {
   startOfWeek,
   endOfWeek,
   eachDayOfInterval,
+  isSameMonth,
+  isSameDay,
 } from "date-fns";
 import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
@@ -70,10 +72,15 @@ export const Calendar = () => {
           const dayOfWeek = format(date, "EEEE") as keyof typeof daysMap;
           const translatedDay = daysMap[dayOfWeek];
 
+          const isTheSameMonth = isSameMonth(date, currentMonth);
+          const isTheSameDay = isSameDay(date, new Date());
+
           return (
             <CalendarDay
               number={dayNumber}
               weekday={translatedDay}
+              isSameMonth={isTheSameMonth}
+              isSameDay={isTheSameDay}
               key={date.toString()}
             />
           );
