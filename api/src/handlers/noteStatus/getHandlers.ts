@@ -22,14 +22,17 @@ export async function getNoteStatusByIdHandler(req: Request, res: Response) {
       return res.json({ success: false, message: "Invalid note status ID" });
     }
 
-    const existingNote: NoteStatus | null = await prisma.noteStatus.findUnique({
-      where: { id: noteStatusId },
-    });
+    const existingNoteStatus: NoteStatus | null =
+      await prisma.noteStatus.findUnique({
+        where: { id: noteStatusId },
+      });
 
     return res.json({
       success: true,
-      message: existingNote ? "Note status found" : "Note status not found",
-      user: existingNote,
+      message: existingNoteStatus
+        ? "Note status found"
+        : "Note status not found",
+      user: existingNoteStatus,
     });
   } catch (err) {
     returnError(res, err);

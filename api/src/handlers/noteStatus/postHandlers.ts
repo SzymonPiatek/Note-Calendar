@@ -16,7 +16,7 @@ export async function postNoteStatusHandler(req: Request, res: Response) {
     return res.json({
       success: true,
       message: "Note status created",
-      note: newNoteStatus,
+      noteStatus: newNoteStatus,
     });
   } catch (error) {
     returnError(res, error);

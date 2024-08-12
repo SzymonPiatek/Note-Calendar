@@ -5,7 +5,8 @@ import { prisma } from "../..";
 
 export async function postNoteHandler(req: Request, res: Response) {
   try {
-    const { name, startDate, endDate, statusId, userId }: Note = req.body;
+    const { name, startDate, endDate, statusId, levelId, userId }: Note =
+      req.body;
 
     if (userId !== null) {
       const isUserExist = await prisma.user.findUnique({
@@ -27,6 +28,7 @@ export async function postNoteHandler(req: Request, res: Response) {
         startDate,
         endDate,
         statusId,
+        levelId,
         userId,
       },
     });

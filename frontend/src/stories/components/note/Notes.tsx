@@ -21,24 +21,11 @@ export const containerVariants = cva([
 
 type NotesVariants = VariantProps<typeof containerVariants>;
 
-type note = {
-  variant: "common" | "important" | "school" | "work";
-  label: string;
-  buttonLabel: string;
-};
-
 export type NotesProps = NotesVariants & {
-  notes: note[];
+  notes: any;
 };
 
-const exampleNotes: note[] = [
-  { variant: "common", label: "Zrób to", buttonLabel: "Do zrobienia" },
-  { variant: "important", label: "Zrób to", buttonLabel: "Wykonano" },
-  { variant: "school", label: "Zrób to", buttonLabel: "Do zrobienia" },
-  { variant: "work", label: "Zrób to", buttonLabel: "Wykonano" },
-];
-
-export const Notes = ({ notes = exampleNotes }: NotesProps) => {
+export const Notes = ({ notes }: NotesProps) => {
   const containerClass = clsx(containerVariants());
 
   return (
@@ -47,13 +34,8 @@ export const Notes = ({ notes = exampleNotes }: NotesProps) => {
       <hr />
       {notes && (
         <>
-          {notes.map((note) => (
-            <Note
-              key={note.label}
-              variant={note.variant}
-              label={note.label}
-              buttonLabel={note.buttonLabel}
-            />
+          {notes.map((note: any) => (
+            <Note key={note.label} note={note} />
           ))}
         </>
       )}

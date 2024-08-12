@@ -30,6 +30,15 @@ model NoteStatus {
   notes       Note[]
 }
 
+model NoteLevel {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt    
+
+  notes       Note[]
+}
+
 model Note {
   id          Int         @id @default(autoincrement())
   name        String
@@ -37,6 +46,8 @@ model Note {
   endDate     DateTime
   statusId    Int
   status      NoteStatus  @relation(fields: [statusId], references: [id])
+  levelId     Int
+  level       NoteLevel   @relation(fields: [levelId], references: [id])
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
   createdAt   DateTime    @default(now())
