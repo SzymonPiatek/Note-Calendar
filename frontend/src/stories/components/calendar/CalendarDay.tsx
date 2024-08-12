@@ -74,6 +74,7 @@ export type CalendarDayProps = VariantProps<typeof containerVariants> & {
   isSameDay: boolean;
   isWeekend: boolean;
   isPast: boolean;
+  onClick: () => void;
 };
 
 export const CalendarDay = ({
@@ -83,13 +84,14 @@ export const CalendarDay = ({
   isSameDay = false,
   isWeekend = false,
   isPast = false,
+  onClick,
 }: CalendarDayProps) => {
   const containerClass = clsx(
     containerVariants({ isSameMonth, isSameDay, isWeekend, isPast })
   );
 
   return (
-    <div className={`calendar--day ${containerClass}`}>
+    <div className={`calendar--day ${containerClass}`} onClick={onClick}>
       <Heading children={number} size={3} />
       <Heading children={weekday} size={6} />
     </div>

@@ -57,11 +57,20 @@ export const Note = ({ note, handleDelete }: NoteProps) => {
 
   const containerClass = clsx(containerVariants({ variant }));
 
+  const matchStatus = {
+    done: "Wykonano",
+    pending: "W realizacji",
+  };
+
+  const statusText =
+    matchStatus[note.status.name as keyof typeof matchStatus] ||
+    note.status.name;
+
   return (
     <div className={containerClass}>
       <div>{note.name}</div>
       <div className="flex justify-between gap-2">
-        <Button label={note.status.name} size="medium" variant="secondary" />
+        <Button label={statusText} size="medium" variant="secondary" />
         <IconButton
           icon="faXmark"
           size="medium"

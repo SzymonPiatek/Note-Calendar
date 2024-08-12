@@ -9,6 +9,7 @@ export async function getAllNotesHandler(req: Request, res: Response) {
       include: {
         status: true,
         level: true,
+        user: true,
       },
     });
     const countNotes: number = await prisma.note.count();
@@ -32,6 +33,7 @@ export async function getNoteByIdHandler(req: Request, res: Response) {
       include: {
         status: true,
         level: true,
+        user: true,
       },
     });
 

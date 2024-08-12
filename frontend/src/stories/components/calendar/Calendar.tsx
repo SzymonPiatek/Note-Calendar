@@ -33,7 +33,11 @@ export const containerVariants = cva([
   "rounded",
 ]);
 
-export const Calendar = () => {
+interface CalendarProps {
+  onDateSelect: (date: Date) => void;
+}
+
+export const Calendar = ({ onDateSelect }: CalendarProps) => {
   const containerClass = clsx(containerVariants());
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -48,6 +52,10 @@ export const Calendar = () => {
 
   const handleNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
+  };
+
+  const handleDayClick = (date: Date) => {
+    onDateSelect(date);
   };
 
   const renderDates = () => {
@@ -89,6 +97,7 @@ export const Calendar = () => {
               isWeekend={isWeekend}
               isPast={isPast}
               key={date.toString()}
+              onClick={() => handleDayClick(date)}
             />
           );
         })}

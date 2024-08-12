@@ -4,25 +4,31 @@ import { Notes } from "../stories/components/note/Notes";
 import { apiURL } from "../utils/api";
 import { Note } from "../utils/modelsTypes";
 import { useUser } from "../contexts/UserContext";
-import { isWithinInterval } from "date-fns";
+import { startOfDay, isWithinInterval, endOfDay, subDays } from "date-fns";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
   const [notes, setNotes] = useState<Note[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${apiURL}note/all`);
         const data = await response.json();
-        const today = new Date();
 
         const filteredNotes = data.notes.filter((note: Note) => {
+          const noteStartDate = new Date(note.startDate);
+          const noteEndDate = new Date(note.endDate);
+          const selected = selectedDate
+            ? subDays(startOfDay(selectedDate), -1)
+            : startOfDay(new Date());
+
           return (
             note.userId === user!.id &&
-            isWithinInterval(today, {
-              start: note.startDate,
-              end: note.endDate,
+            isWithinInterval(selected, {
+              start: noteStartDate,
+              end: endOfDay(noteEndDate),
             })
           );
         });
@@ -35,7 +41,7 @@ const HomePage: React.FC = () => {
     };
 
     fetchData();
-  }, [user]);
+  }, [user, selectedDate]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -53,13 +59,17 @@ const HomePage: React.FC = () => {
     }
   };
 
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+  };
+
   return (
     <div className="planner">
       <div className="notes">
         <Notes notes={notes} handleDelete={handleDelete} />
       </div>
       <div className="calendar">
-        <Calendar />
+        <Calendar onDateSelect={handleDateSelect} />
       </div>
     </div>
   );
