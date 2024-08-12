@@ -72,6 +72,7 @@ export const Label = ({ size = "medium", label, icon }: LabelProps) => {
     console.warn(`Icon "${thisIcon}" not found`);
     return null;
   }
+  
   return (
     <div className={containerClass}>
       {icon && <FontAwesomeIcon icon={thisIcon} className={iconClass} />}

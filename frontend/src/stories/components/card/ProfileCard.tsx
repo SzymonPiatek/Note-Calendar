@@ -5,6 +5,7 @@ import { Label } from "../label/Label";
 import { Heading } from "../heading/Heading";
 
 export const containerVariants = cva([
+  "flex-1",
   "grid",
   "grid-cols-[auto_1fr]",
   "p-4",
@@ -25,6 +26,7 @@ export const sideVariants = cva([
   "flex-shrink-0",
   "justify-between",
 ]);
+
 export const imageVariants = cva([
   "bg-shadow-400",
   "h-20",

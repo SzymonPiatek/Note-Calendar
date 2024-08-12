@@ -23,3 +23,9 @@
   gap: 2rem;
   padding: 2rem;
 }
+
+.profile--side {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
