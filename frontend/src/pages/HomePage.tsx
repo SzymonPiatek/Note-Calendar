@@ -8,6 +8,7 @@ import { startOfDay, isWithinInterval, endOfDay, subDays } from "date-fns";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
+  const [allNotes, setAllNotes] = useState<Note[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
   const [noteStatuses, setNoteStatuses] = useState<NoteStatus[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(
@@ -23,6 +24,8 @@ const HomePage: React.FC = () => {
       try {
         const response = await fetch(`${apiURL}note/all`);
         const data = await response.json();
+
+        setAllNotes(data.notes);
 
         const filteredNotes = data.notes.filter((note: Note) => {
           const noteStartDate = new Date(note.startDate);
@@ -43,6 +46,7 @@ const HomePage: React.FC = () => {
         setNotes(filteredNotes);
       } catch (err) {
         console.error(err);
+        setAllNotes([]);
         setNotes([]);
       }
     };
@@ -76,6 +80,7 @@ const HomePage: React.FC = () => {
       }
 
       setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+      setAllNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
     } catch (err) {
       console.error(err);
     }
@@ -148,7 +153,7 @@ const HomePage: React.FC = () => {
         />
       </div>
       <div className="calendar">
-        <Calendar onDateSelect={handleDateSelect} />
+        <Calendar onDateSelect={handleDateSelect} notes={allNotes} />
       </div>
     </div>
   );

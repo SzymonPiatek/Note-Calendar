@@ -4,6 +4,7 @@ import { Heading } from "../heading/Heading";
 
 export const containerVariants = cva(
   [
+    "relative",
     "w-full",
     "h-full",
     "px-2",
@@ -67,6 +68,18 @@ export const containerVariants = cva(
   }
 );
 
+export const dotVariants = cva([
+  "w-2",
+  "h-2",
+  "m-1",
+  "rounded-full",
+  "bg-primary-600",
+  "dark:bg-quaternary-300",
+  "absolute",
+  "top-0",
+  "right-0",
+]);
+
 export type CalendarDayProps = VariantProps<typeof containerVariants> & {
   number: number | string;
   weekday: string;
@@ -74,6 +87,7 @@ export type CalendarDayProps = VariantProps<typeof containerVariants> & {
   isSameDay: boolean;
   isWeekend: boolean;
   isPast: boolean;
+  noted: boolean;
   onClick: () => void;
 };
 
@@ -84,16 +98,19 @@ export const CalendarDay = ({
   isSameDay = false,
   isWeekend = false,
   isPast = false,
+  noted = false,
   onClick,
 }: CalendarDayProps) => {
   const containerClass = clsx(
     containerVariants({ isSameMonth, isSameDay, isWeekend, isPast })
   );
+  const dotClass = clsx(dotVariants());
 
   return (
     <div className={`calendar--day ${containerClass}`} onClick={onClick}>
       <Heading children={number} size={3} />
       <Heading children={weekday} size={6} />
+      {noted && <div className={dotClass}></div>}
     </div>
   );
 };

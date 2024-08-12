@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   format,
   addMonths,
@@ -20,6 +20,7 @@ import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
 import { IconButton } from "../button/IconButton";
 import { CalendarDay } from "./CalendarDay";
+import { Note } from "../../../utils/modelsTypes";
 
 export const containerVariants = cva([
   "w-full",
@@ -35,12 +36,22 @@ export const containerVariants = cva([
 
 interface CalendarProps {
   onDateSelect: (date: Date) => void;
+  notes: Note[];
 }
 
-export const Calendar = ({ onDateSelect }: CalendarProps) => {
+export const Calendar = ({ onDateSelect, notes }: CalendarProps) => {
   const containerClass = clsx(containerVariants());
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  const notesDates = useMemo(() => {
+    const dateMap = new Set<string>();
+    notes.forEach((note) => {
+      const noteDate = startOfDay(new Date(note.startDate));
+      dateMap.add(format(noteDate, "yyyy-MM-dd"));
+    });
+    return dateMap;
+  }, [notes]);
 
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -88,6 +99,8 @@ export const Calendar = ({ onDateSelect }: CalendarProps) => {
           const isWeekend = getDay(date) === 0 || getDay(date) === 6;
           const isPast = isBefore(startOfDay(date), startOfDay(new Date()));
 
+          const dateKey = format(startOfDay(date), "yyyy-MM-dd");
+
           return (
             <CalendarDay
               number={dayNumber}
@@ -98,6 +111,7 @@ export const Calendar = ({ onDateSelect }: CalendarProps) => {
               isPast={isPast}
               key={date.toString()}
               onClick={() => handleDayClick(date)}
+              noted={notesDates.has(dateKey)}
             />
           );
         })}
