@@ -9,6 +9,7 @@ export const containerVariants = cva([
   "max-w-xs",
   "flex",
   "flex-col",
+  "gap-4",
   "justify-center",
   "items-center",
   "p-4",
