@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { Note } from "./Note";
 import { Heading } from "../heading/Heading";
+import { Note as NoteType } from "../../../utils/modelsTypes";
 
 export const containerVariants = cva([
   "w-full",
@@ -22,10 +23,11 @@ export const containerVariants = cva([
 type NotesVariants = VariantProps<typeof containerVariants>;
 
 export type NotesProps = NotesVariants & {
-  notes: any;
+  notes: NoteType[] | [];
+  handleDelete: (id: number) => void;
 };
 
-export const Notes = ({ notes }: NotesProps) => {
+export const Notes = ({ notes, handleDelete }: NotesProps) => {
   const containerClass = clsx(containerVariants());
 
   return (
@@ -35,7 +37,11 @@ export const Notes = ({ notes }: NotesProps) => {
       {notes && (
         <>
           {notes.map((note: any) => (
-            <Note key={note.label} note={note} />
+            <Note
+              key={note.label}
+              note={note}
+              handleDelete={() => handleDelete(note.id)}
+            />
           ))}
         </>
       )}

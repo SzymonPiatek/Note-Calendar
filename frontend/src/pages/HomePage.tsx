@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiURL + `note/all`);
+        const response = await fetch(`${apiURL}note/all`);
         const data = await response.json();
         const filteredNotes = data.notes.filter(
           (note: Note) => note.userId === user!.id
@@ -25,12 +25,28 @@ const HomePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
+
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch(`${apiURL}note/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete note");
+      }
+
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="planner">
       <div className="notes">
-        <Notes notes={notes} />
+        <Notes notes={notes} handleDelete={handleDelete} />
       </div>
       <div className="calendar">
         <Calendar />
