@@ -6,7 +6,7 @@ export const containerVariants = cva([
   "w-full",
   "px-2",
   "py-2",
-  "gap-4",
+  "gap-2",
   "flex",
   "flex-col",
   "items-left",
@@ -30,7 +30,7 @@ export const CalendarDay = ({
 
   return (
     <div className={`calendar--day ${containerClass}`}>
-      <Heading children={number} size={2} />
+      <Heading children={number} size={3} />
       <Heading children={weekday} size={6} />
     </div>
   );
