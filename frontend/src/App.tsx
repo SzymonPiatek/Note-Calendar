@@ -10,6 +10,7 @@ import { LoginPage } from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import PrivateRoute from "./routes/PrivateRoute";
 import { useUser } from "./contexts/UserContext";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const { user } = useUser();
@@ -28,6 +29,7 @@ function App() {
           {/* Logged in user */}
           <Route path="/" element={<PrivateRoute />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
         </Routes>
       </main>

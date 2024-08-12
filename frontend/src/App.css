@@ -14,5 +14,20 @@
 }
 
 .navbar {
-  max-height: 80px;
+  height: 60px;
+  max-height: 60px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.profile--side {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
