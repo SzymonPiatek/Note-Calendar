@@ -4,6 +4,7 @@ import { Notes } from "../stories/components/note/Notes";
 import { apiURL } from "../utils/api";
 import { Note } from "../utils/modelsTypes";
 import { useUser } from "../contexts/UserContext";
+import { isWithinInterval } from "date-fns";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
@@ -14,9 +15,18 @@ const HomePage: React.FC = () => {
       try {
         const response = await fetch(`${apiURL}note/all`);
         const data = await response.json();
-        const filteredNotes = data.notes.filter(
-          (note: Note) => note.userId === user!.id
-        );
+        const today = new Date();
+
+        const filteredNotes = data.notes.filter((note: Note) => {
+          return (
+            note.userId === user!.id &&
+            isWithinInterval(today, {
+              start: note.startDate,
+              end: note.endDate,
+            })
+          );
+        });
+
         setNotes(filteredNotes);
       } catch (err) {
         console.error(err);
