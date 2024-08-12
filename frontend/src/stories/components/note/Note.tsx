@@ -18,14 +18,16 @@ export const containerVariants = cva(
     "border-black",
     "dark:border-white",
     "font-semibold",
+    "bg-secondary-600",
+    "dark:bg-primary-900",
   ],
   {
     variants: {
       variant: {
-        important: ["bg-primary-700"],
-        school: ["bg-secondary-400"],
-        work: ["bg-tertiary-700"],
-        common: ["bg-quaternary-600"],
+        important: [],
+        school: [],
+        work: [],
+        common: [],
       },
     },
   }
@@ -34,6 +36,7 @@ export const containerVariants = cva(
 type NoteVariants = VariantProps<typeof containerVariants>;
 
 export type NoteProps = NoteVariants & {
+  variant: "common" | "important" | "school" | "work";
   label: string;
   buttonLabel: string;
 };
@@ -48,7 +51,7 @@ export const Note = ({
   return (
     <div className={containerClass}>
       <div>{label}</div>
-      <Button label={buttonLabel} size="medium" variant="primary" />
+      <Button label={buttonLabel} size="medium" variant="secondary" />
     </div>
   );
 };
