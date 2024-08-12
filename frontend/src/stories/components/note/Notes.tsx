@@ -11,7 +11,7 @@ export const containerVariants = cva([
   "flex-col",
   "gap-4",
   "p-4",
-  "rounded-xl",
+  "rounded",
   "border",
   "border-2",
   "shadow-sm",
