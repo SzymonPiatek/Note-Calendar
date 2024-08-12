@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Button } from "../button/Button";
 import { Note as NoteType } from "../../../utils/modelsTypes";
 import { IconButton } from "../button/IconButton";
+import { Heading } from "../heading/Heading";
 
 export const containerVariants = cva(
   [
@@ -67,8 +68,8 @@ export const Note = ({ note, handleDelete }: NoteProps) => {
     note.status.name;
 
   return (
-    <div className={containerClass}>
-      <div>{note.name}</div>
+    <div className={`note ${containerClass}`}>
+      <Heading size={5} children={note.name} />
       <div className="flex justify-between gap-2">
         <Button label={statusText} size="medium" variant="secondary" />
         <IconButton

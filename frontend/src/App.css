@@ -68,3 +68,9 @@
   max-height: calc(100dvh - 60px - 4rem);
   flex: 1;
 }
+
+.note h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

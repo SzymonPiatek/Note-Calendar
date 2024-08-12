@@ -66,7 +66,13 @@ const HomePage: React.FC = () => {
   return (
     <div className="planner">
       <div className="notes">
-        <Notes notes={notes} handleDelete={handleDelete} />
+        <Notes
+          notes={notes}
+          handleDelete={handleDelete}
+          date={
+            selectedDate ? startOfDay(selectedDate) : startOfDay(new Date())
+          }
+        />
       </div>
       <div className="calendar">
         <Calendar onDateSelect={handleDateSelect} />
