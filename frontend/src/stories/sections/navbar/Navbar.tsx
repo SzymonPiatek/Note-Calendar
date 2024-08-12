@@ -62,6 +62,15 @@ export const Navbar = ({
         )}
         {user && (
           <>
+            {user.isSuperuser && (
+              <IconButton
+                label="Panel Administratora"
+                icon="faUserTie"
+                variant="outline"
+                size="medium"
+                href="/admin"
+              />
+            )}
             <Button
               label={`${user.firstName} ${user.lastName}`}
               variant="primary"
