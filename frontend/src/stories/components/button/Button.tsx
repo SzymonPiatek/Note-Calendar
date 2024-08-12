@@ -35,7 +35,7 @@ export const buttonVariants = cva(
           "bg-quaternary-600",
           "text-white",
           "border-transparent",
-          "hover:bg-secondary-500",
+          "hover:bg-quaternary-500",
         ],
         outline: [
           "shadow-sm",

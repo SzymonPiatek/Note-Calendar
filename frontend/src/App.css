@@ -1,5 +1,5 @@
 .login {
-  height: calc(100dvh - 80px);
+  height: calc(100dvh - 60px);
   width: 100%;
   translate: 0 0%;
   display: flex;
@@ -30,4 +30,47 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 2rem;
+}
+
+.calendar {
+  max-height: calc(100dvh - 60px - 4rem);
+  flex: 1;
+  min-width: 400px;
+}
+
+.calendar--day h6 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar--days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  place-items: center;
+  gap: 0.5rem;
+}
+
+.calendar--days p {
+  background: orange;
+}
+
+.planner {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.notes {
+  min-width: 400px;
+  max-height: calc(100dvh - 60px - 4rem);
+  flex: 1;
+}
+
+.note h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
