@@ -54,6 +54,8 @@ type InputVariants = VariantProps<typeof inputVariants>;
 
 type InputProps = InputVariants & {
   label: string;
+  value?: string;
+  onChange?: React.Dispatch<React.SetStateAction<string>>;
   disabled?: boolean;
   required?: boolean;
   placeholder?: string;
@@ -66,11 +68,19 @@ export const Input = ({
   disabled = false,
   required = false,
   type = "text",
+  value,
+  onChange,
   ...props
 }: InputProps) => {
   const containerClass = clsx(containerVariants());
   const inputClass = clsx(inputVariants({ size }));
   const labelClass = clsx(labelVariants({ size }));
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
 
   return (
     <div className={containerClass}>
@@ -79,6 +89,8 @@ export const Input = ({
         disabled={disabled}
         required={required}
         type={type}
+        value={value}
+        onChange={handleChange}
         {...(props as ComponentPropsWithoutRef<"input">)}
       />
       <label className={labelClass}>{label}</label>

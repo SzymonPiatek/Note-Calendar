@@ -29,16 +29,27 @@ export const formVariants = cva([
   "items-center",
 ]);
 
-export const Login = () => {
+export type LoginProps = {
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  emailState: React.Dispatch<React.SetStateAction<string>>;
+  passwordState: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const Login = ({ onSubmit, emailState, passwordState }: LoginProps) => {
   const containerClass = clsx(containerVariants());
   const formClass = clsx(formVariants());
 
   return (
     <div className={containerClass}>
       <Heading children="Logowanie" size={2} />
-      <form className={formClass}>
-        <Input size="medium" type="text" label="e-mail" />
-        <Input size="medium" type="password" label="password" />
+      <form className={formClass} onSubmit={onSubmit}>
+        <Input size="medium" type="text" label="e-mail" onChange={emailState} />
+        <Input
+          size="medium"
+          type="password"
+          label="password"
+          onChange={passwordState}
+        />
         <Button size="large" variant="primary" label="Zaloguj się" />
       </form>
     </div>
