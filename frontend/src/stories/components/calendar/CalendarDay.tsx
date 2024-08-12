@@ -5,6 +5,7 @@ import { Heading } from "../heading/Heading";
 export const containerVariants = cva(
   [
     "w-full",
+    "h-full",
     "px-2",
     "py-2",
     "gap-2",

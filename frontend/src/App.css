@@ -1,5 +1,5 @@
 .login {
-  height: calc(100dvh - 80px);
+  height: calc(100dvh - 60px);
   width: 100%;
   translate: 0 0%;
   display: flex;
@@ -33,7 +33,7 @@
 }
 
 .calendar {
-  padding: 2rem;
+  height: calc(100dvh - 60px);
 }
 
 .calendar--day h6 {
@@ -51,4 +51,10 @@
 
 .calendar--days p {
   background: orange;
+}
+
+.planner {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
 }

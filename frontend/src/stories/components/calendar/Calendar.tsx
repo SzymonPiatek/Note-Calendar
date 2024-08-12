@@ -28,10 +28,10 @@ export const containerVariants = cva([
   "gap-4",
   "flex",
   "flex-col",
-  "justify-between",
   "border",
   "border-2",
   "rounded",
+  "dark:text-light-100",
 ]);
 
 export const Calendar = () => {
