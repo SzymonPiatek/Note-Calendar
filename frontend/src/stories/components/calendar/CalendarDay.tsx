@@ -33,6 +33,10 @@ export const containerVariants = cva(
         true: ["bg-quaternary-200", "dark:bg-light-500"],
         false: [],
       },
+      isWeekend: {
+        true: [],
+        false: [],
+      },
     },
   }
 );
@@ -42,6 +46,7 @@ export type CalendarDayProps = VariantProps<typeof containerVariants> & {
   weekday: string;
   isSameMonth: boolean;
   isSameDay: boolean;
+  isWeekend: boolean;
 };
 
 export const CalendarDay = ({
@@ -49,8 +54,11 @@ export const CalendarDay = ({
   weekday = "Poniedzialek",
   isSameMonth = false,
   isSameDay = false,
+  isWeekend = false,
 }: CalendarDayProps) => {
-  const containerClass = clsx(containerVariants({ isSameMonth, isSameDay }));
+  const containerClass = clsx(
+    containerVariants({ isSameMonth, isSameDay, isWeekend })
+  );
 
   return (
     <div className={`calendar--day ${containerClass}`}>

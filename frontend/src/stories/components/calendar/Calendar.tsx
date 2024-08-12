@@ -12,6 +12,7 @@ import {
   eachDayOfInterval,
   isSameMonth,
   isSameDay,
+  getDay,
 } from "date-fns";
 import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
@@ -74,6 +75,7 @@ export const Calendar = () => {
 
           const isTheSameMonth = isSameMonth(date, currentMonth);
           const isTheSameDay = isSameDay(date, new Date());
+          const isWeekend = getDay(date) === 0 || getDay(date) === 6;
 
           return (
             <CalendarDay
@@ -81,6 +83,7 @@ export const Calendar = () => {
               weekday={translatedDay}
               isSameMonth={isTheSameMonth}
               isSameDay={isTheSameDay}
+              isWeekend={isWeekend}
               key={date.toString()}
             />
           );
