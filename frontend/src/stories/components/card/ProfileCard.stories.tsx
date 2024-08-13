@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ProfileCard } from "./ProfileCard";
 
 const meta = {
-  title: "ORGANISMS/card/ProfileCard",
+  title: "ATOMS/card/ProfileCard",
   component: ProfileCard,
   args: {},
   argTypes: {},
