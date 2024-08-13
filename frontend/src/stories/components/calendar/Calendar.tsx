@@ -20,7 +20,7 @@ import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
 import { IconButton } from "../button/IconButton";
 import { CalendarDay } from "./CalendarDay";
-import { NoteType } from "../../../utils/modelsTypes";
+import { BetterNoteType } from "../../../utils/modelsTypes";
 
 export const containerVariants = cva([
   "w-full",
@@ -36,7 +36,7 @@ export const containerVariants = cva([
 
 interface CalendarProps {
   onDateSelect: (date: Date) => void;
-  notes: NoteType[];
+  notes: BetterNoteType[];
 }
 
 export const Calendar = ({ onDateSelect, notes = [] }: CalendarProps) => {

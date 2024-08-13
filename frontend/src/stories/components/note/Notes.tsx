@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { Note } from "./Note";
 import { Heading } from "../heading/Heading";
-import { BetterNoteType } from "../../../utils/modelsTypes";
+import { BetterNoteType, NoteType } from "../../../utils/modelsTypes";
 import { format } from "date-fns";
 import { IconButton } from "../button/IconButton";
 
@@ -78,7 +78,12 @@ export const Notes = ({
 
   const formattedDate = format(date, "dd.MM.yyyy");
 
-  const sortedNotes = notes.sort((a, b) => a.status.id - b.status.id);
+  let sortedNotes;
+  if (isBetterNoteTypeArray(notes)) {
+    sortedNotes = notes.sort((a, b) => a.status.id - b.status.id);
+  } else {
+    sortedNotes = [notes];
+  }
 
   return (
     <div className={containerClass}>
@@ -90,19 +95,19 @@ export const Notes = ({
             icon="faPlus"
             variant="circle"
             size="large"
-            onClick={() => handleAddNote()}
+            onClick={handleAddNote}
           />
         </div>
       </div>
       <hr />
-      {notes.length === 0 && (
+      {sortedNotes.length === 0 && (
         <div className="flex flex-col items-center py-2">
           <Heading children="Brak notatek" size={4} />
         </div>
       )}
-      {notes.length > 0 && (
+      {sortedNotes.length > 0 && (
         <div className="notes--list gap-2 overflow-y-auto">
-          {sortedNotes.map((note: BetterNoteType) => (
+          {sortedNotes.map((note) => (
             <Note
               key={note.id}
               note={note}
@@ -115,3 +120,14 @@ export const Notes = ({
     </div>
   );
 };
+
+function isBetterNoteTypeArray(
+  notes: NoteType | BetterNoteType[]
+): notes is BetterNoteType[] {
+  return (
+    Array.isArray(notes) &&
+    notes.every(
+      (note) => typeof note === "object" && "status" in note && "level" in note
+    )
+  );
+}

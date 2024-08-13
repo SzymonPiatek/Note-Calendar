@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Calendar } from "../stories/components/calendar/Calendar";
 import { Notes } from "../stories/components/note/Notes";
 import { apiURL } from "../utils/api";
-import { NoteType } from "../utils/modelsTypes";
+import { BetterNoteType } from "../utils/modelsTypes";
 import { useUser } from "../contexts/UserContext";
 import { startOfDay, isWithinInterval, endOfDay, subDays } from "date-fns";
 import { AddNoteModal } from "../stories/components/modal/AddNoteModal";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
-  const [allNotes, setAllNotes] = useState<NoteType[]>([]);
-  const [notes, setNotes] = useState<NoteType[]>([]);
+  const [allNotes, setAllNotes] = useState<BetterNoteType[]>([]);
+  const [notes, setNotes] = useState<BetterNoteType[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(
     startOfDay(new Date())
   );
@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
 
         setAllNotes(data.notes);
 
-        const filteredNotes = data.notes.filter((note: NoteType) => {
+        const filteredNotes = data.notes.filter((note: BetterNoteType) => {
           const noteStartDate = new Date(note.startDate);
           const noteEndDate = new Date(note.endDate);
           const selected = selectedDate
@@ -73,16 +73,7 @@ const HomePage: React.FC = () => {
   };
 
   const handleStatus = async (id: number) => {
-    try {
-      const response = await fetch(`${apiURL}note/${id}/changeStatus/`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    console.log("Status");
   };
 
   const handleAddNote = async () => {
