@@ -5,12 +5,16 @@ import { prisma } from "../..";
 import {
   dbToLevel,
   dbToStatus,
+  dbToCategory,
   Level,
+  Category,
   levelDisplay,
   levelToDb,
   Status,
   statusDisplay,
   statusToDb,
+  categoryDisplay,
+  categoryToDb,
 } from "../../utils/note";
 
 export async function postNoteHandler(req: Request, res: Response) {
@@ -22,11 +26,13 @@ export async function postNoteHandler(req: Request, res: Response) {
       endDate,
       status: statusKey,
       level: levelKey,
+      category: categoryKey,
       userId,
     } = req.body;
 
     const statusDb = statusToDb[statusKey as Status];
     const levelDb = levelToDb[levelKey as Level];
+    const categoryDb = categoryToDb[categoryKey as Category];
 
     if (statusDb === undefined) {
       return res.json({ success: false, message: "Invalid status value" });
@@ -34,6 +40,10 @@ export async function postNoteHandler(req: Request, res: Response) {
 
     if (levelDb === undefined) {
       return res.json({ success: false, message: "Invalid level value" });
+    }
+
+    if (categoryDb === undefined) {
+      return res.json({ success: false, message: "Invalid category value" });
     }
 
     if (userId !== null) {
@@ -58,12 +68,14 @@ export async function postNoteHandler(req: Request, res: Response) {
         endDate,
         status: statusDb,
         level: levelDb,
+        category: categoryDb,
         userId,
       },
     });
 
     const statusValue = newNote.status;
     const levelValue = newNote.level;
+    const categoryValue = newNote.category;
 
     const responseNote = {
       ...newNote,
@@ -76,6 +88,11 @@ export async function postNoteHandler(req: Request, res: Response) {
         id: levelValue,
         value: dbToLevel[newNote.level],
         displayName: levelDisplay[dbToLevel[levelValue]],
+      },
+      category: {
+        id: categoryValue,
+        value: dbToCategory[newNote.category],
+        displayName: categoryDisplay[dbToCategory[categoryValue]],
       },
     };
 

@@ -17,6 +17,7 @@ export interface NoteType {
   endDate: Date;
   status: number;
   level: number;
+  category: number;
   user?: UserType;
   userId: number;
 }
@@ -33,6 +34,11 @@ export interface BetterNoteType {
     displayName: string;
   };
   level: {
+    id: number;
+    value: string;
+    displayName: string;
+  };
+  category: {
     id: number;
     value: string;
     displayName: string;

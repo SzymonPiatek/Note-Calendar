@@ -7,6 +7,7 @@ const meta = {
   args: {
     status: "pending",
     level: "high",
+    category: "school",
   },
   argTypes: {
     status: {
@@ -28,6 +29,17 @@ const meta = {
       table: {
         defaultValue: {
           summary: "high",
+        },
+      },
+    },
+    category: {
+      name: "Category",
+      description: "Category of the note",
+      control: { type: "select" },
+      options: ["school", "work", "private"],
+      table: {
+        defaultValue: {
+          summary: "school",
         },
       },
     },

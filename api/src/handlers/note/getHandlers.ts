@@ -5,8 +5,10 @@ import { Note } from "@prisma/client";
 import {
   dbToLevel,
   dbToStatus,
+  dbToCategory,
   levelDisplay,
   statusDisplay,
+  categoryDisplay,
 } from "../../utils/note";
 
 export async function getAllNotesHandler(req: Request, res: Response) {
@@ -29,6 +31,11 @@ export async function getAllNotesHandler(req: Request, res: Response) {
         id: note.level,
         value: dbToLevel[note.level],
         displayName: levelDisplay[dbToLevel[note.level]],
+      },
+      category: {
+        id: note.category,
+        value: dbToCategory[note.category],
+        displayName: categoryDisplay[dbToCategory[note.category]],
       },
     }));
 
@@ -57,27 +64,37 @@ export async function getNoteByIdHandler(req: Request, res: Response) {
       },
     });
 
-    const statusValue = existingNote ? existingNote.status : null;
-    const levelValue = existingNote ? existingNote.level : null;
+    if (!existingNote) {
+      return res.json({ success: false, message: "Note not found" });
+    }
+
+    const statusValue = existingNote.status;
+    const levelValue = existingNote.level;
+    const categoryValue = existingNote.category;
 
     const responseNote = {
       ...existingNote,
       status: {
-        id: existingNote!.status,
-        value: dbToStatus[existingNote!.status],
-        displayName: statusDisplay[dbToStatus[statusValue!]],
+        id: statusValue,
+        value: dbToStatus[existingNote.status],
+        displayName: statusDisplay[dbToStatus[statusValue]],
       },
       level: {
-        id: existingNote!.level,
-        value: dbToLevel[existingNote!.level],
-        displayName: levelDisplay[dbToLevel[levelValue!]],
+        id: levelValue,
+        value: dbToLevel[existingNote.level],
+        displayName: levelDisplay[dbToLevel[levelValue]],
+      },
+      category: {
+        id: categoryValue,
+        value: dbToCategory[existingNote.category],
+        displayName: categoryDisplay[dbToCategory[categoryValue]],
       },
     };
 
     return res.json({
       success: true,
-      message: existingNote ? "Note found" : "Note not found",
-      note: existingNote ? responseNote : null,
+      message: "Note found",
+      note: responseNote,
     });
   } catch (err) {
     returnError(res, err);

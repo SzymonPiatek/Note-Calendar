@@ -34,6 +34,11 @@ export const containerVariants = cva(
         pending: [],
         done: ["opacity-50"],
       },
+      category: {
+        school: [],
+        work: [],
+        private: [],
+      },
     },
   }
 );
@@ -62,6 +67,11 @@ export const Note = ({
       value: "HIGH",
       displayName: "Wysoki",
     },
+    category: {
+      id: 1,
+      value: "SCHOOL",
+      displayName: "Szkoła",
+    },
     userId: 1,
   },
   handleDelete,
@@ -69,8 +79,12 @@ export const Note = ({
 }: NoteProps) => {
   const status = note.status.value.toLowerCase() as "pending" | "done";
   const level = note.level.value.toLowerCase() as "low" | "medium" | "high";
+  const category = note.category.value.toLowerCase() as
+    | "school"
+    | "work"
+    | "private";
 
-  const containerClass = clsx(containerVariants({ status, level }));
+  const containerClass = clsx(containerVariants({ status, level, category }));
 
   return (
     <div className={`note ${containerClass}`}>

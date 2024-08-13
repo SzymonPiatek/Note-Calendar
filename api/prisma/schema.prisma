@@ -27,6 +27,7 @@ model Note {
   description String
   startDate   DateTime
   endDate     DateTime
+  category    Int
   status      Int
   level       Int  
   userId      Int

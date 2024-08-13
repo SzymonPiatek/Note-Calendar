@@ -49,6 +49,11 @@ export const Notes = ({
         value: "HIGH",
         displayName: "Wysoki",
       },
+      category: {
+        id: 1,
+        value: "SCHOOL",
+        displayName: "Szkoła",
+      },
       userId: 1,
     },
     {
@@ -65,6 +70,11 @@ export const Notes = ({
         id: 3,
         value: "HIGH",
         displayName: "Wysoki",
+      },
+      category: {
+        id: 2,
+        value: "WORK",
+        displayName: "Praca",
       },
       userId: 1,
     },
