@@ -40,6 +40,16 @@ export const Notes = ({
 
   const formattedDate = format(date, "dd.MM.yyyy");
 
+  const sortedNotes = notes.sort((a, b) => {
+    if (a.status.name === "pending" && b.status.name === "done") {
+      return -1;
+    } else if (a.status.name === "done" && b.status.name === "pending") {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
   return (
     <div className={containerClass}>
       <div className="flex justify-between items-end">
@@ -54,18 +64,14 @@ export const Notes = ({
       )}
       {notes.length > 0 && (
         <div className="flex flex-col flex-1 gap-2 overflow-y-auto">
-          {notes && (
-            <>
-              {notes.map((note: any) => (
-                <Note
-                  key={note.id}
-                  note={note}
-                  handleDelete={() => handleDelete(note.id)}
-                  handleStatus={() => handleStatus(note.id)}
-                />
-              ))}
-            </>
-          )}
+          {sortedNotes.map((note: NoteType) => (
+            <Note
+              key={note.id}
+              note={note}
+              handleDelete={() => handleDelete(note.id!)}
+              handleStatus={() => handleStatus(note.id!)}
+            />
+          ))}
         </div>
       )}
     </div>
