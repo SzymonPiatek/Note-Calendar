@@ -49,6 +49,18 @@ export const buttonVariants = cva(
           "hover:text-white",
           "active:bg-primary-100",
         ],
+        done: [
+          "shadow-sm",
+          "bg-done-700",
+          "hover:bg-done-800",
+          "active:bg-done-900",
+        ],
+        pending: [
+          "shadow-sm",
+          "bg-pending-600",
+          "hover:bg-pending-700",
+          "active:bg-pending-800",
+        ],
         text: ["bg-transparent", "border-transparent", "shadow-none"],
       },
       size: {

@@ -16,7 +16,7 @@ export const containerVariants = cva(
     "px-4",
     "rounded-xl",
     "border",
-    "border-2",
+    "border-1",
     "shadow-sm",
     "border-black",
     "dark:border-white",
@@ -37,6 +37,8 @@ export const containerVariants = cva(
 );
 
 type NoteVariants = VariantProps<typeof containerVariants>;
+
+type NoteStatus = "done" | "pending";
 
 export type NoteProps = NoteVariants & {
   note: NoteType;
@@ -59,14 +61,13 @@ export const Note = ({ note, handleDelete, handleStatus }: NoteProps) => {
 
   const containerClass = clsx(containerVariants({ variant }));
 
-  const matchStatus = {
+  const matchStatus: Record<NoteStatus, string> = {
     done: "Wykonano",
     pending: "W realizacji",
   };
 
-  const statusText =
-    matchStatus[note.status.name as keyof typeof matchStatus] ||
-    note.status.name;
+  const statusName = note.status.name as NoteStatus;
+  const statusText = matchStatus[statusName] || note.status.name;
 
   return (
     <div className={`note ${containerClass}`}>
@@ -75,7 +76,7 @@ export const Note = ({ note, handleDelete, handleStatus }: NoteProps) => {
         <Button
           label={statusText}
           size="medium"
-          variant="secondary"
+          variant={statusName}
           onClick={handleStatus}
         />
         <IconButton
