@@ -70,7 +70,7 @@ export const buttonVariants = cva(
           "dark:hover:bg-important-700",
           "dark:active:bg-important-800",
         ],
-        text: ["bg-transparent", "border-transparent", "shadow-none"],
+        text: ["bg-transparent", "border-transparent"],
       },
       size: {
         small: ["text-xs", "px-2", "py-1", "gap-2"],

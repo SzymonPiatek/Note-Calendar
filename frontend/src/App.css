@@ -86,3 +86,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.modal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100dvw;
+  height: calc(100dvh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal--container {
+  height: 700px;
+  max-height: 90%;
+  width: 600px;
+  max-width: calc(100dvw - 4rem);
+}

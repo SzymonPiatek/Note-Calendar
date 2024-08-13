@@ -5,6 +5,7 @@ import { apiURL } from "../utils/api";
 import { Note, NoteStatus } from "../utils/modelsTypes";
 import { useUser } from "../contexts/UserContext";
 import { startOfDay, isWithinInterval, endOfDay, subDays } from "date-fns";
+import { Modal } from "../stories/components/modal/Modal";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
@@ -14,6 +15,7 @@ const HomePage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     startOfDay(new Date())
   );
+  const [isAddNoteModalOpen, setIsAddNoteModalOpen] = useState<Boolean>(false);
 
   const [noteStatusMap, setNoteStatusMap] = useState<
     Record<number, NoteStatus>
@@ -141,7 +143,11 @@ const HomePage: React.FC = () => {
   };
 
   const handleAddNote = async () => {
-    console.log("Test");
+    {
+      isAddNoteModalOpen
+        ? setIsAddNoteModalOpen(false)
+        : setIsAddNoteModalOpen(true);
+    }
   };
 
   return (
@@ -160,6 +166,11 @@ const HomePage: React.FC = () => {
       <div className="calendar">
         <Calendar onDateSelect={handleDateSelect} notes={allNotes} />
       </div>
+      {isAddNoteModalOpen && (
+        <div className="modal">
+          <Modal handleAddNote={handleAddNote} />
+        </div>
+      )}
     </div>
   );
 };
