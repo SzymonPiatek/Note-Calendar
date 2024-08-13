@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { Button } from "../button/Button";
-import { Note as NoteType } from "../../../utils/modelsTypes";
+import { BetterNoteType } from "../../../utils/modelsTypes";
 import { IconButton } from "../button/IconButton";
 import { Heading } from "../heading/Heading";
 
@@ -20,84 +20,64 @@ export const containerVariants = cva(
     "shadow-sm",
     "font-semibold",
     "cursor-pointer",
+    "bg-secondary-400",
+    "dark:bg-secondary-800",
   ],
   {
     variants: {
-      variant: {
-        important: [
-          "bg-important-700",
-          "hover:bg-important-800",
-          "active:bg-important-900",
-          "dark:bg-important-800",
-          "dark:hover:bg-important-900",
-          "dark:active:bg-important-950",
-        ],
-        common: [
-          "bg-shadow-300",
-          "hover:bg-shadow-400",
-          "active:bg-shadow-600",
-          "dark:bg-light-600",
-          "dark:hover:bg-light-700",
-          "dark:active:bg-light-800",
-        ],
-        default: ["bg-primary-300", "dark:bg-secondary-800"],
+      level: {
+        low: [],
+        medium: [],
+        high: [],
       },
       status: {
-        done: ["opacity-60"],
         pending: [],
+        done: ["opacity-50"],
       },
-    },
-    defaultVariants: {
-      variant: "default",
     },
   }
 );
 
 type NoteVariants = VariantProps<typeof containerVariants>;
 
-type NoteStatus = "done" | "pending";
-
 export type NoteProps = NoteVariants & {
-  note: NoteType;
+  note: BetterNoteType;
   handleDelete: () => void;
   handleStatus: () => void;
 };
 
-export const Note = ({ note, handleDelete, handleStatus }: NoteProps) => {
-  const validVariants: NoteVariants["variant"][] = [
-    "important",
-    "common",
-    "default",
-  ];
+export const Note = ({
+  note = {
+    name: "Zrób zakupy",
+    description: "Marchewka, Pomidory, Coca-Cola",
+    startDate: new Date("2024-08-13T23:59:00.858Z"),
+    endDate: new Date("2024-08-13T23:59:00.858Z"),
+    status: {
+      id: 1,
+      value: "PENDING",
+      displayName: "Do zrobienia",
+    },
+    level: {
+      id: 3,
+      value: "HIGH",
+      displayName: "Wysoki",
+    },
+    userId: 1,
+  },
+  handleDelete,
+  handleStatus,
+}: NoteProps) => {
+  const status = note.status.value.toLowerCase() as "pending" | "done";
+  const level = note.level.value.toLowerCase() as "low" | "medium" | "high";
 
-  const variant: NoteVariants["variant"] = validVariants.includes(
-    note.level.name as NoteVariants["variant"]
-  )
-    ? (note.level.name as NoteVariants["variant"])
-    : "default";
-
-  const validStatuses: NoteStatus[] = ["done", "pending"];
-  const status: NoteStatus = validStatuses.includes(
-    note.status.name as NoteStatus
-  )
-    ? (note.status.name as NoteStatus)
-    : "pending";
-
-  const containerClass = clsx(containerVariants({ variant, status }));
-
-  const matchStatus: Record<NoteStatus, string> = {
-    done: "Wykonano",
-    pending: "Do zrobienia",
-  };
-
-  const statusText = matchStatus[status];
+  const containerClass = clsx(containerVariants({ status, level }));
 
   return (
     <div className={`note ${containerClass}`}>
       <Heading size={5} children={note.name} />
       <div className="flex justify-between gap-2 items-center">
         <Button
-          label={statusText}
+          label={note.status.displayName}
           size="medium"
           variant={status}
           onClick={handleStatus}

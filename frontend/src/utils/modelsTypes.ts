@@ -1,4 +1,4 @@
-export interface User {
+export interface UserType {
   id?: number;
   firstName: string;
   lastName: string;
@@ -9,25 +9,34 @@ export interface User {
   updatedAt?: Date;
 }
 
-export interface NoteStatus {
+export interface NoteType {
   id?: number;
   name: string;
-}
-
-export interface NoteLevel {
-  id?: number;
-  name: string;
-}
-
-export interface Note {
-  id?: number;
-  name: string;
+  description: string;
   startDate: Date;
   endDate: Date;
-  status: NoteStatus;
-  statusId: number;
-  level: NoteLevel;
-  leveld: number;
-  user: User;
+  status: number;
+  level: number;
+  user?: UserType;
+  userId: number;
+}
+
+export interface BetterNoteType {
+  id?: number;
+  name: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  status: {
+    id: number;
+    value: string;
+    displayName: string;
+  };
+  level: {
+    id: number;
+    value: string;
+    displayName: string;
+  };
+  user?: UserType;
   userId: number;
 }

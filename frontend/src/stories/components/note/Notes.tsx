@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { Note } from "./Note";
 import { Heading } from "../heading/Heading";
-import { Note as NoteType } from "../../../utils/modelsTypes";
+import { BetterNoteType } from "../../../utils/modelsTypes";
 import { format } from "date-fns";
 import { IconButton } from "../button/IconButton";
 
@@ -25,7 +25,7 @@ export const containerVariants = cva([
 type NotesVariants = VariantProps<typeof containerVariants>;
 
 export type NotesProps = NotesVariants & {
-  notes: NoteType[] | [];
+  notes: BetterNoteType[];
   handleDelete: (id: number) => void;
   handleStatus: (id: number) => void;
   handleAddNote: () => void;
@@ -33,9 +33,44 @@ export type NotesProps = NotesVariants & {
 };
 
 export const Notes = ({
-  notes,
+  notes = [
+    {
+      name: "Zrób zakupy",
+      description: "Marchewka, Pomidory, Coca-Cola",
+      startDate: new Date("2024-08-13T23:59:00.858Z"),
+      endDate: new Date("2024-08-13T23:59:00.858Z"),
+      status: {
+        id: 1,
+        value: "PENDING",
+        displayName: "Do zrobienia",
+      },
+      level: {
+        id: 3,
+        value: "HIGH",
+        displayName: "Wysoki",
+      },
+      userId: 1,
+    },
+    {
+      name: "Naucz się na sprawdzian",
+      description: "To jest bardzo ważne",
+      startDate: new Date("2024-08-13T23:59:00.858Z"),
+      endDate: new Date("2024-08-13T23:59:00.858Z"),
+      status: {
+        id: 1,
+        value: "DONE",
+        displayName: "Wykonano",
+      },
+      level: {
+        id: 3,
+        value: "HIGH",
+        displayName: "Wysoki",
+      },
+      userId: 1,
+    },
+  ],
+  date = new Date(),
   handleDelete,
-  date,
   handleStatus,
   handleAddNote,
 }: NotesProps) => {
@@ -43,15 +78,7 @@ export const Notes = ({
 
   const formattedDate = format(date, "dd.MM.yyyy");
 
-  const sortedNotes = notes.sort((a, b) => {
-    if (a.status.name === "pending" && b.status.name === "done") {
-      return -1;
-    } else if (a.status.name === "done" && b.status.name === "pending") {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
+  const sortedNotes = notes.sort((a, b) => a.status.id - b.status.id);
 
   return (
     <div className={containerClass}>
@@ -75,7 +102,7 @@ export const Notes = ({
       )}
       {notes.length > 0 && (
         <div className="notes--list gap-2 overflow-y-auto">
-          {sortedNotes.map((note: NoteType) => (
+          {sortedNotes.map((note: BetterNoteType) => (
             <Note
               key={note.id}
               note={note}

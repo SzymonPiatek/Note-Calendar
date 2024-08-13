@@ -2,24 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Calendar } from "../stories/components/calendar/Calendar";
 import { Notes } from "../stories/components/note/Notes";
 import { apiURL } from "../utils/api";
-import { Note, NoteStatus } from "../utils/modelsTypes";
+import { NoteType } from "../utils/modelsTypes";
 import { useUser } from "../contexts/UserContext";
 import { startOfDay, isWithinInterval, endOfDay, subDays } from "date-fns";
 import { AddNoteModal } from "../stories/components/modal/AddNoteModal";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
-  const [allNotes, setAllNotes] = useState<Note[]>([]);
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [noteStatuses, setNoteStatuses] = useState<NoteStatus[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(
+  const [allNotes, setAllNotes] = useState<NoteType[]>([]);
+  const [notes, setNotes] = useState<NoteType[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date>(
     startOfDay(new Date())
   );
   const [isAddNoteModalOpen, setIsAddNoteModalOpen] = useState<Boolean>(false);
-
-  const [noteStatusMap, setNoteStatusMap] = useState<
-    Record<number, NoteStatus>
-  >({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +24,7 @@ const HomePage: React.FC = () => {
 
         setAllNotes(data.notes);
 
-        const filteredNotes = data.notes.filter((note: Note) => {
+        const filteredNotes = data.notes.filter((note: NoteType) => {
           const noteStartDate = new Date(note.startDate);
           const noteEndDate = new Date(note.endDate);
           const selected = selectedDate
@@ -56,21 +51,6 @@ const HomePage: React.FC = () => {
     fetchData();
   }, [user, selectedDate]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiURL}noteStatus/all`);
-        const data = await response.json();
-        setNoteStatuses(data.noteStatuses);
-      } catch (err) {
-        console.error(err);
-        setNoteStatuses([]);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const handleDelete = async (id: number) => {
     try {
       const response = await fetch(`${apiURL}note/${id}`, {
@@ -93,53 +73,16 @@ const HomePage: React.FC = () => {
   };
 
   const handleStatus = async (id: number) => {
-    setNotes((prevNotes) => {
-      const updatedNotes = prevNotes.map((note) => {
-        if (note.id === id) {
-          const currentStatus = noteStatusMap[note.id] || note.status;
-          const currentIndex = noteStatuses.findIndex(
-            (status) => status.name === currentStatus.name
-          );
-
-          const nextIndex = (currentIndex + 1) % noteStatuses.length;
-          const nextStatus = noteStatuses[nextIndex];
-
-          setNoteStatusMap((prevMap) => ({
-            ...prevMap,
-            [id]: nextStatus,
-          }));
-
-          const updateStatus = async () => {
-            try {
-              const response = await fetch(`${apiURL}note/${id}`, {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ statusId: nextStatus.id }),
-              });
-
-              if (!response.ok) {
-                throw new Error("Failed to update note status");
-              }
-            } catch (err) {
-              console.error(err);
-            }
-          };
-
-          updateStatus();
-
-          return {
-            ...note,
-            status: nextStatus,
-          };
-        }
-
-        return note;
+    try {
+      const response = await fetch(`${apiURL}note/${id}/changeStatus/`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-
-      return updatedNotes;
-    });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleAddNote = async () => {

@@ -32,8 +32,8 @@ export const labelVariants = cva(
     "absolute",
     "inset-x-0",
     "bottom-0",
-    "text-shadow-900",
     "-z-10",
+    "text-shadow-900",
     "dark:text-light-100",
   ],
   {
