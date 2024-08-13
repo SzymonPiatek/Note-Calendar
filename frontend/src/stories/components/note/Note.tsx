@@ -18,15 +18,20 @@ export const containerVariants = cva(
     "border",
     "border-1",
     "shadow-sm",
-    "border-black",
-    "dark:border-white",
     "font-semibold",
     "cursor-pointer",
   ],
   {
     variants: {
       variant: {
-        important: ["bg-important-600", "dark:bg-important-800"],
+        important: [
+          "bg-important-700",
+          "hover:bg-important-800",
+          "active:bg-important-900",
+          "dark:bg-important-800",
+          "dark:hover:bg-important-900",
+          "dark:active:bg-important-950",
+        ],
         common: [
           "bg-shadow-300",
           "hover:bg-shadow-400",
@@ -36,6 +41,10 @@ export const containerVariants = cva(
           "dark:active:bg-light-800",
         ],
         default: ["bg-primary-300", "dark:bg-secondary-800"],
+      },
+      status: {
+        done: ["opacity-60"],
+        pending: [],
       },
     },
     defaultVariants: {
@@ -67,30 +76,36 @@ export const Note = ({ note, handleDelete, handleStatus }: NoteProps) => {
     ? (note.level.name as NoteVariants["variant"])
     : "default";
 
-  const containerClass = clsx(containerVariants({ variant }));
+  const validStatuses: NoteStatus[] = ["done", "pending"];
+  const status: NoteStatus = validStatuses.includes(
+    note.status.name as NoteStatus
+  )
+    ? (note.status.name as NoteStatus)
+    : "pending";
+
+  const containerClass = clsx(containerVariants({ variant, status }));
 
   const matchStatus: Record<NoteStatus, string> = {
     done: "Wykonano",
-    pending: "W realizacji",
+    pending: "Do zrobienia",
   };
 
-  const statusName = note.status.name as NoteStatus;
-  const statusText = matchStatus[statusName] || note.status.name;
+  const statusText = matchStatus[status];
 
   return (
     <div className={`note ${containerClass}`}>
       <Heading size={5} children={note.name} />
-      <div className="flex justify-between gap-2">
+      <div className="flex justify-between gap-2 items-center">
         <Button
           label={statusText}
           size="medium"
-          variant={statusName}
+          variant={status}
           onClick={handleStatus}
         />
         <IconButton
           icon="faXmark"
-          size="medium"
-          variant="outline"
+          size="large"
+          variant="xmark"
           onClick={handleDelete}
         />
       </div>

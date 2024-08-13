@@ -61,6 +61,15 @@ export const buttonVariants = cva(
           "hover:bg-pending-700",
           "active:bg-pending-800",
         ],
+        xmark: [
+          "rounded-full",
+          "w-8",
+          "h-8",
+          "hover:bg-important-600",
+          "active:bg-important-700",
+          "dark:hover:bg-important-700",
+          "dark:active:bg-important-800",
+        ],
         text: ["bg-transparent", "border-transparent", "shadow-none"],
       },
       size: {
