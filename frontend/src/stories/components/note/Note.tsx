@@ -105,7 +105,7 @@ export const Note = ({ note, handleDelete, handleStatus }: NoteProps) => {
         <IconButton
           icon="faXmark"
           size="large"
-          variant="xmark"
+          variant="circle"
           onClick={handleDelete}
         />
       </div>

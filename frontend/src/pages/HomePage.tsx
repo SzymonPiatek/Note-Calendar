@@ -86,11 +86,11 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleDateSelect = (date: Date) => {
+  const handleDateSelect = async (date: Date) => {
     setSelectedDate(date);
   };
 
-  const handleStatus = (id: number) => {
+  const handleStatus = async (id: number) => {
     setNotes((prevNotes) => {
       const updatedNotes = prevNotes.map((note) => {
         if (note.id === id) {
@@ -140,6 +140,10 @@ const HomePage: React.FC = () => {
     });
   };
 
+  const handleAddNote = async () => {
+    console.log("Test");
+  };
+
   return (
     <div className="planner">
       <div className="notes">
@@ -150,6 +154,7 @@ const HomePage: React.FC = () => {
             selectedDate ? startOfDay(selectedDate) : startOfDay(new Date())
           }
           handleStatus={handleStatus}
+          handleAddNote={handleAddNote}
         />
       </div>
       <div className="calendar">

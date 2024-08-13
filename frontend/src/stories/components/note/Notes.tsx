@@ -4,6 +4,7 @@ import { Note } from "./Note";
 import { Heading } from "../heading/Heading";
 import { Note as NoteType } from "../../../utils/modelsTypes";
 import { format } from "date-fns";
+import { IconButton } from "../button/IconButton";
 
 export const containerVariants = cva([
   "w-full",
@@ -27,6 +28,7 @@ export type NotesProps = NotesVariants & {
   notes: NoteType[] | [];
   handleDelete: (id: number) => void;
   handleStatus: (id: number) => void;
+  handleAddNote: () => void;
   date: Date;
 };
 
@@ -35,6 +37,7 @@ export const Notes = ({
   handleDelete,
   date,
   handleStatus,
+  handleAddNote,
 }: NotesProps) => {
   const containerClass = clsx(containerVariants());
 
@@ -54,7 +57,15 @@ export const Notes = ({
     <div className={containerClass}>
       <div className="flex justify-between items-end">
         <Heading children="Notatki" size={2} />
-        <Heading children={formattedDate} size={4} />
+        <div className="flex gap-4 items-end">
+          <Heading children={formattedDate} size={4} />
+          <IconButton
+            icon="faPlus"
+            variant="circle"
+            size="large"
+            onClick={() => handleAddNote()}
+          />
+        </div>
       </div>
       <hr />
       {notes.length === 0 && (

@@ -61,7 +61,7 @@ export const buttonVariants = cva(
           "hover:bg-pending-700",
           "active:bg-pending-800",
         ],
-        xmark: [
+        circle: [
           "rounded-full",
           "w-8",
           "h-8",
