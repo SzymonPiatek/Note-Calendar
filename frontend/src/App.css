@@ -69,6 +69,18 @@
   flex: 1;
 }
 
+.notes--list {
+  min-width: 400px;
+  max-height: calc(100dvh - 60px - 4rem);
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  grid-auto-flow: row dense;
+}
+
+.note {
+  height: fit-content !important;
+}
+
 .note h5 {
   white-space: nowrap;
   overflow: hidden;

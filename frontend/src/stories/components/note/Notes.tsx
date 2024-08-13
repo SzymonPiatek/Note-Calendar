@@ -63,7 +63,7 @@ export const Notes = ({
         </div>
       )}
       {notes.length > 0 && (
-        <div className="flex flex-col flex-1 gap-2 overflow-y-auto">
+        <div className="notes--list gap-2 overflow-y-auto">
           {sortedNotes.map((note: NoteType) => (
             <Note
               key={note.id}
