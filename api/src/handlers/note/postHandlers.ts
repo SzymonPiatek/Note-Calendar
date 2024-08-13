@@ -5,7 +5,7 @@ import { prisma } from "../..";
 
 export async function postNoteHandler(req: Request, res: Response) {
   try {
-    const { name, startDate, endDate, statusId, levelId, userId }: Note =
+    const { name, description, startDate, endDate, statusId, levelId, userId }: Note =
       req.body;
 
     if (userId !== null) {
@@ -25,6 +25,7 @@ export async function postNoteHandler(req: Request, res: Response) {
     const newNote: Note = await prisma.note.create({
       data: {
         name,
+        description,
         startDate,
         endDate,
         statusId,

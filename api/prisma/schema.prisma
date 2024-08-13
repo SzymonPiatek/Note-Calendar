@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id          Int         @id @default(autoincrement())
-  firstName   String
+  firstName   String      
   lastName    String    
   email       String      @unique
   password    String
@@ -42,6 +42,7 @@ model NoteLevel {
 model Note {
   id          Int         @id @default(autoincrement())
   name        String
+  description String
   startDate   DateTime
   endDate     DateTime
   statusId    Int
