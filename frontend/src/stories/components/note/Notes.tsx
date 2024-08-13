@@ -27,7 +27,7 @@ type NotesVariants = VariantProps<typeof containerVariants>;
 export type NotesProps = NotesVariants & {
   notes: BetterNoteType[];
   handleDelete: (id: number) => void;
-  handleStatus: (id: number) => void;
+  handleStatus: (id: number, currentStatus: string) => void;
   handleAddNote: () => void;
   date: Date;
 };
@@ -122,7 +122,7 @@ export const Notes = ({
               key={note.id}
               note={note}
               handleDelete={() => handleDelete(note.id!)}
-              handleStatus={() => handleStatus(note.id!)}
+              handleStatus={() => handleStatus(note.id!, note.status.value)}
             />
           ))}
         </div>

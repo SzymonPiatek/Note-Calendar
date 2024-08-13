@@ -56,10 +56,12 @@ export async function editNoteHandler(req: Request, res: Response) {
       return res.json({ success: false, message: "Invalid category value" });
     }
 
+    const newStatus = status ? statusDb : existingNote.status;
+
     const updatedNote: Note = await prisma.note.update({
       where: { id: noteId },
       data: {
-        status: statusDb ?? existingNote.status,
+        status: newStatus,
         level: levelDb ?? existingNote.level,
         category: categoryDb ?? existingNote.category,
       },

@@ -72,16 +72,44 @@ const HomePage: React.FC = () => {
     setSelectedDate(date);
   };
 
-  const handleStatus = async (id: number) => {
-    console.log("Status");
+  const handleStatus = async (id: number, currentStatus: string) => {
+    try {
+      const response = await fetch(`${apiURL}note/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: getNextStatus(currentStatus),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update note status");
+      }
+
+      const updatedNote = await response.json();
+
+      setNotes((prevNotes) =>
+        prevNotes.map((note) => (note.id === id ? updatedNote.note : note))
+      );
+      setAllNotes((prevNotes) =>
+        prevNotes.map((note) => (note.id === id ? updatedNote.note : note))
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleAddNote = async () => {
-    {
-      isAddNoteModalOpen
-        ? setIsAddNoteModalOpen(false)
-        : setIsAddNoteModalOpen(true);
-    }
+  const getNextStatus = (currentStatus: string) => {
+    const statusOrder = ["PENDING", "DONE"];
+    const currentIndex = statusOrder.indexOf(currentStatus);
+    const nextIndex = (currentIndex + 1) % statusOrder.length;
+    return statusOrder[nextIndex];
+  };
+
+  const handleAddNote = () => {
+    setIsAddNoteModalOpen(!isAddNoteModalOpen);
   };
 
   return (
