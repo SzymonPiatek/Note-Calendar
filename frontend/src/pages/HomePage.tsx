@@ -5,7 +5,7 @@ import { apiURL } from "../utils/api";
 import { Note, NoteStatus } from "../utils/modelsTypes";
 import { useUser } from "../contexts/UserContext";
 import { startOfDay, isWithinInterval, endOfDay, subDays } from "date-fns";
-import { Modal } from "../stories/components/modal/Modal";
+import { AddNoteModal } from "../stories/components/modal/AddNoteModal";
 
 const HomePage: React.FC = () => {
   const { user } = useUser();
@@ -168,7 +168,7 @@ const HomePage: React.FC = () => {
       </div>
       {isAddNoteModalOpen && (
         <div className="modal">
-          <Modal handleAddNote={handleAddNote} />
+          <AddNoteModal handleAddNote={handleAddNote} />
         </div>
       )}
     </div>

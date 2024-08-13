@@ -21,7 +21,7 @@ type ModalProps = ModalVariants & {
   handleAddNote: () => void;
 };
 
-export const Modal = ({ handleAddNote }: ModalProps) => {
+export const AddNoteModal = ({ handleAddNote }: ModalProps) => {
   const containerClass = clsx(containerVariants());
 
   return (

@@ -70,14 +70,15 @@
 }
 
 .notes--list {
-  min-width: 400px;
+  min-width: 300px;
   max-height: calc(100dvh - 60px - 4rem);
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
   grid-auto-flow: row dense;
 }
 
 .note {
+  min-width: 350px;
   height: fit-content !important;
 }
 
