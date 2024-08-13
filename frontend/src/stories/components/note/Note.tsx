@@ -21,12 +21,20 @@ export const containerVariants = cva(
     "border-black",
     "dark:border-white",
     "font-semibold",
+    "cursor-pointer",
   ],
   {
     variants: {
       variant: {
-        important: ["bg-secondary-600", "dark:bg-primary-900"],
-        common: ["bg-primary-300", "dark:bg-secondary-800"],
+        important: ["bg-important-600", "dark:bg-important-800"],
+        common: [
+          "bg-shadow-300",
+          "hover:bg-shadow-400",
+          "active:bg-shadow-600",
+          "dark:bg-light-600",
+          "dark:hover:bg-light-700",
+          "dark:active:bg-light-800",
+        ],
         default: ["bg-primary-300", "dark:bg-secondary-800"],
       },
     },
