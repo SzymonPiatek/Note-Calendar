@@ -54,7 +54,7 @@ export const containerVariants = cva(
       },
       {
         isSameDay: true,
-        className: "bg-tertiary-500 dark:bg-primary-800",
+        className: "bg-primary-200 dark:bg-primary-800",
       },
       {
         isSameMonth: false,
@@ -72,12 +72,12 @@ export const dotVariants = cva([
   "w-2",
   "h-2",
   "m-1",
-  "rounded-full",
-  "bg-primary-600",
-  "dark:bg-quaternary-300",
   "absolute",
   "top-0",
   "right-0",
+  "rounded-full",
+  "bg-primary-600",
+  "dark:bg-primary-300",
 ]);
 
 export type CalendarDayProps = VariantProps<typeof containerVariants> & {
