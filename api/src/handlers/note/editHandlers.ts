@@ -2,12 +2,21 @@ import { Request, Response } from "express";
 import { returnError } from "../../utils/error";
 import { Note } from "@prisma/client";
 import { prisma } from "../..";
+import {
+  dbToStatus,
+  dbToLevel,
+  Level,
+  levelToDb,
+  Status,
+  statusToDb,
+} from "../../utils/note";
 
 export async function editNoteHandler(req: Request, res: Response) {
   try {
     const noteId: number = parseInt(req.params.id);
-    const { statusId } = req.body as {
-      statusId: number;
+    const { status, level } = req.body as {
+      status?: string;
+      level?: string;
     };
 
     if (isNaN(noteId)) {
@@ -19,19 +28,38 @@ export async function editNoteHandler(req: Request, res: Response) {
     });
 
     if (!existingNote) {
-      return res.json({ success: true, message: "Note not found" });
+      return res.json({ success: false, message: "Note not found" });
+    }
+
+    const statusDb = status ? statusToDb[status as Status] : undefined;
+    const levelDb = level ? levelToDb[level as Level] : undefined;
+
+    if (status && statusDb === undefined) {
+      return res.json({ success: false, message: "Invalid status value" });
+    }
+
+    if (level && levelDb === undefined) {
+      return res.json({ success: false, message: "Invalid level value" });
     }
 
     const updatedNote: Note = await prisma.note.update({
       where: { id: noteId },
       data: {
-        statusId: statusId ?? existingNote.statusId,
+        status: statusDb ?? existingNote.status,
+        level: levelDb ?? existingNote.level,
       },
     });
 
+    const responseNote = {
+      ...updatedNote,
+      status: dbToStatus[updatedNote.status],
+      level: dbToLevel[updatedNote.level],
+    };
+
     return res.json({
       success: true,
-     note: updatedNote,
+      message: "Note edited",
+      note: responseNote,
     });
   } catch (err) {
     returnError(res, err);

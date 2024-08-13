@@ -7,8 +7,6 @@ export async function getAllNotesHandler(req: Request, res: Response) {
   try {
     const notes: Note[] = await prisma.note.findMany({
       include: {
-        status: true,
-        level: true,
         user: true,
       },
     });
@@ -31,8 +29,6 @@ export async function getNoteByIdHandler(req: Request, res: Response) {
     const existingNote: Note | null = await prisma.note.findUnique({
       where: { id: noteId },
       include: {
-        status: true,
-        level: true,
         user: true,
       },
     });
