@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CalendarDay } from "./CalendarDay";
 
 const meta = {
-  title: "ORGANISMS/calendar/CalendarDay",
+  title: "ATOMS/calendar/CalendarDay",
   component: CalendarDay,
   args: {},
   argTypes: {},

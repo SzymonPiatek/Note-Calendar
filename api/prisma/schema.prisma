@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id          Int         @id @default(autoincrement())
-  firstName   String
+  firstName   String      
   lastName    String    
   email       String      @unique
   password    String
@@ -21,33 +21,15 @@ model User {
   notes       Note[] 
 }
 
-model NoteStatus {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt    
-
-  notes       Note[]
-}
-
-model NoteLevel {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt    
-
-  notes       Note[]
-}
-
 model Note {
   id          Int         @id @default(autoincrement())
   name        String
+  description String
   startDate   DateTime
   endDate     DateTime
-  statusId    Int
-  status      NoteStatus  @relation(fields: [statusId], references: [id])
-  levelId     Int
-  level       NoteLevel   @relation(fields: [levelId], references: [id])
+  category    Int
+  status      Int
+  level       Int  
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
   createdAt   DateTime    @default(now())

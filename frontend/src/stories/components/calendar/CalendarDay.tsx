@@ -44,21 +44,24 @@ export const containerVariants = cva(
         isWeekend: false,
         isSameDay: false,
         isSameMonth: true,
-        className: "bg-shadow-200 dark:bg-light-900",
+        className:
+          "bg-shadow-200 hover:bg-shadow-300 active:bg-shadow-400 dark:bg-light-700 dark:hover:bg-light-800 dark:active:bg-light-900",
       },
       {
         isWeekend: true,
         isSameDay: false,
         isSameMonth: true,
-        className: "bg-shadow-300 dark:bg-light-700",
+        className:
+          "bg-shadow-300 hover:bg-shadow-400 active:bg-shadow-600 dark:bg-light-500 dark:hover:bg-light-600 dark:active:bg-light-700",
       },
       {
         isSameDay: true,
-        className: "bg-tertiary-500 dark:bg-primary-800",
+        className:
+          "bg-primary-200 hover:bg-primary-300 active:bg-primary-400 dark:bg-primary-800 dark:hover:bg-primary-900 dark:active:bg-primary-950",
       },
       {
         isSameMonth: false,
-        className: "opacity-30",
+        className: "opacity-30 pointer-events-none cursor-not-allowed",
       },
       {
         isPast: true,
@@ -72,12 +75,12 @@ export const dotVariants = cva([
   "w-2",
   "h-2",
   "m-1",
-  "rounded-full",
-  "bg-primary-600",
-  "dark:bg-quaternary-300",
   "absolute",
   "top-0",
   "right-0",
+  "rounded-full",
+  "bg-primary-600",
+  "dark:bg-primary-300",
 ]);
 
 export type CalendarDayProps = VariantProps<typeof containerVariants> & {

@@ -20,11 +20,10 @@ import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
 import { IconButton } from "../button/IconButton";
 import { CalendarDay } from "./CalendarDay";
-import { Note } from "../../../utils/modelsTypes";
+import { BetterNoteType } from "../../../utils/modelsTypes";
 
 export const containerVariants = cva([
   "w-full",
-  "max-w-4xl",
   "p-4",
   "gap-4",
   "flex",
@@ -36,10 +35,10 @@ export const containerVariants = cva([
 
 interface CalendarProps {
   onDateSelect: (date: Date) => void;
-  notes: Note[];
+  notes: BetterNoteType[];
 }
 
-export const Calendar = ({ onDateSelect, notes }: CalendarProps) => {
+export const Calendar = ({ onDateSelect, notes = [] }: CalendarProps) => {
   const containerClass = clsx(containerVariants());
 
   const [currentMonth, setCurrentMonth] = useState(new Date());

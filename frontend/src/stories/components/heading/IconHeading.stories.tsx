@@ -4,19 +4,15 @@ import { IconHeading } from "./IconHeading";
 const meta: Meta<typeof IconHeading> = {
   title: "ATOMS/heading/IconHeading",
   component: IconHeading,
-  parameters: {
-    layout: "centered",
-  },
-  tags: ["autodocs"],
   args: {
     size: 1,
-    children: "Heading size 1",
+    icon: "faCoffee",
   },
   argTypes: {
-    children: {
-      name: "title",
+    icon: {
+      name: "icon",
       control: { type: "text" },
-      description: "Text to display in heading",
+      description: "Icon to display in heading",
     },
     size: {
       control: { type: "select" },

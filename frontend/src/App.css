@@ -69,8 +69,40 @@
   flex: 1;
 }
 
+.notes--list {
+  min-width: 300px;
+  max-height: calc(100dvh - 60px - 4rem);
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+  grid-auto-flow: row dense;
+}
+
+.note {
+  min-width: 350px;
+  height: fit-content !important;
+}
+
 .note h5 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.modal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100dvw;
+  height: calc(100dvh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal--container {
+  height: 700px;
+  max-height: 90%;
+  width: 600px;
+  max-width: calc(100dvw - 4rem);
 }

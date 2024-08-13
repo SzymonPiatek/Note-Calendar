@@ -30,7 +30,7 @@ export type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> &
 export const IconHeading: React.FC<HeadingProps> = ({
   size = 2,
   className,
-  icon,
+  icon = "faCoffee",
   ...props
 }) => {
   const HeaderTag: React.ElementType = `h${size}` as React.ElementType;

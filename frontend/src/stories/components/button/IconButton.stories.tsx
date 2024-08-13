@@ -16,7 +16,7 @@ const meta = {
       name: "Variant",
       control: { type: "select" },
       description: "Variant of the button",
-      options: ["primary", "secondary", "outline", "text"],
+      options: ["primary", "secondary", "outline", "text", "done", "pending"],
       table: {
         defaultValue: {
           summary: "primary",

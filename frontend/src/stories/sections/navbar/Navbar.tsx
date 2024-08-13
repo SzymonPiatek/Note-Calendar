@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Button } from "../../components/button/Button";
 import { IconButton } from "../../components/button/IconButton";
-import { User } from "../../../utils/modelsTypes";
+import { UserType } from "../../../utils/modelsTypes";
 
 export const navbarVariants = cva([
   "shadow-sm",
@@ -19,7 +19,7 @@ export const sideVariants = cva(["p-2", "flex", "gap-2", "place-items-center"]);
 type NavbarProps = {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
-  user: User | null;
+  user: UserType | null;
   handleLogout: () => void;
 };
 
