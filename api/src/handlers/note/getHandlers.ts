@@ -2,6 +2,12 @@ import { Request, Response } from "express";
 import { returnError } from "../../utils/error";
 import { prisma } from "../../index";
 import { Note } from "@prisma/client";
+import {
+  dbToLevel,
+  dbToStatus,
+  levelDisplay,
+  statusDisplay,
+} from "../../utils/note";
 
 export async function getAllNotesHandler(req: Request, res: Response) {
   try {
@@ -12,7 +18,25 @@ export async function getAllNotesHandler(req: Request, res: Response) {
     });
     const countNotes: number = await prisma.note.count();
 
-    return res.json({ success: true, count: countNotes, notes });
+    const transformedNotes = notes.map((note) => ({
+      ...note,
+      status: {
+        id: note.status,
+        value: dbToStatus[note.status],
+        displayName: statusDisplay[dbToStatus[note.status]],
+      },
+      level: {
+        id: note.level,
+        value: dbToLevel[note.level],
+        displayName: levelDisplay[dbToLevel[note.level]],
+      },
+    }));
+
+    return res.json({
+      success: true,
+      count: countNotes,
+      notes: transformedNotes,
+    });
   } catch (error) {
     returnError(res, error);
   }
@@ -33,10 +57,27 @@ export async function getNoteByIdHandler(req: Request, res: Response) {
       },
     });
 
+    const statusValue = existingNote ? existingNote.status : null;
+    const levelValue = existingNote ? existingNote.level : null;
+
+    const responseNote = {
+      ...existingNote,
+      status: {
+        id: existingNote!.status,
+        value: dbToStatus[existingNote!.status],
+        displayName: statusDisplay[dbToStatus[statusValue!]],
+      },
+      level: {
+        id: existingNote!.level,
+        value: dbToLevel[existingNote!.level],
+        displayName: levelDisplay[dbToLevel[levelValue!]],
+      },
+    };
+
     return res.json({
       success: true,
       message: existingNote ? "Note found" : "Note not found",
-      user: existingNote,
+      note: existingNote ? responseNote : null,
     });
   } catch (err) {
     returnError(res, err);

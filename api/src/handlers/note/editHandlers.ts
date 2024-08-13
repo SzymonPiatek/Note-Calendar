@@ -9,6 +9,8 @@ import {
   levelToDb,
   Status,
   statusToDb,
+  statusDisplay,
+  levelDisplay,
 } from "../../utils/note";
 
 export async function editNoteHandler(req: Request, res: Response) {
@@ -50,10 +52,21 @@ export async function editNoteHandler(req: Request, res: Response) {
       },
     });
 
+    const statusValue = updatedNote.status;
+    const levelValue = updatedNote.level;
+
     const responseNote = {
       ...updatedNote,
-      status: dbToStatus[updatedNote.status],
-      level: dbToLevel[updatedNote.level],
+      status: {
+        id: statusValue,
+        value: dbToStatus[updatedNote.status],
+        displayName: statusDisplay[dbToStatus[statusValue]],
+      },
+      level: {
+        id: levelValue,
+        value: dbToLevel[updatedNote.level],
+        displayName: levelDisplay[dbToLevel[levelValue]],
+      },
     };
 
     return res.json({

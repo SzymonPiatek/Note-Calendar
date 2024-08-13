@@ -2,7 +2,16 @@ import { Request, Response } from "express";
 import { returnError } from "../../utils/error";
 import { Note } from "@prisma/client";
 import { prisma } from "../..";
-import { Level, levelToDb, Status, statusToDb } from "../../utils/note";
+import {
+  dbToLevel,
+  dbToStatus,
+  Level,
+  levelDisplay,
+  levelToDb,
+  Status,
+  statusDisplay,
+  statusToDb,
+} from "../../utils/note";
 
 export async function postNoteHandler(req: Request, res: Response) {
   try {
@@ -53,10 +62,21 @@ export async function postNoteHandler(req: Request, res: Response) {
       },
     });
 
+    const statusValue = newNote.status;
+    const levelValue = newNote.level;
+
     const responseNote = {
       ...newNote,
-      status: statusKey,
-      level: levelKey,
+      status: {
+        id: statusValue,
+        value: dbToStatus[newNote.status],
+        displayName: statusDisplay[dbToStatus[statusValue]],
+      },
+      level: {
+        id: levelValue,
+        value: dbToLevel[newNote.level],
+        displayName: levelDisplay[dbToLevel[levelValue]],
+      },
     };
 
     return res.json({
