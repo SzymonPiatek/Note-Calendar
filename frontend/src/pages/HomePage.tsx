@@ -129,8 +129,8 @@ const HomePage: React.FC = () => {
       const newNote = await response.json();
       console.log(newNote.message);
 
-      // setNotes((prevNotes) => [...prevNotes, newNote.note]);
-      // setAllNotes((prevNotes) => [...prevNotes, newNote.note]);
+      setNotes((prevNotes) => [...prevNotes, newNote.note]);
+      setAllNotes((prevNotes) => [...prevNotes, newNote.note]);
       setIsAddNoteModalOpen(false);
     } catch (err) {
       console.error(err);
