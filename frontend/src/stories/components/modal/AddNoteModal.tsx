@@ -47,9 +47,9 @@ export const AddNoteModal = ({
     description: "",
     startDate: "",
     endDate: "",
-    category: "SCHOOL",
-    status: "PENDING",
-    level: "HIGH",
+    category: "",
+    status: "",
+    level: "",
     userId: user!.id,
   });
 
@@ -123,7 +123,7 @@ export const AddNoteModal = ({
           onChange={handleChange}
           value={formData.endDate}
         />
-        {/* <label>Kategoria</label>
+        <label>Kategoria</label>
         <select
           name="category"
           value={formData.category}
@@ -170,7 +170,7 @@ export const AddNoteModal = ({
               {levelDisplay[lvl]}
             </option>
           ))}
-        </select> */}
+        </select>
         <Button label="Dodaj" variant="primary" size="medium" type="submit" />
       </form>
     </div>
