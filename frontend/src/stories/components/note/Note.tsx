@@ -77,6 +77,10 @@ export const Note = ({
   handleDelete,
   handleStatus,
 }: NoteProps) => {
+  if (!note || !note.status || !note.level || !note.category) {
+    return null;
+  }
+
   const status = note.status.value.toLowerCase() as "pending" | "done";
   const level = note.level.value.toLowerCase() as "low" | "medium" | "high";
   const category = note.category.value.toLowerCase() as

@@ -101,7 +101,7 @@
 }
 
 .modal--container {
-  height: 700px;
+  height: fit-content;
   max-height: 90%;
   width: 600px;
   max-width: calc(100dvw - 4rem);

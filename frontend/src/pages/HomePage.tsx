@@ -27,15 +27,18 @@ const HomePage: React.FC = () => {
         const filteredNotes = data.notes.filter((note: BetterNoteType) => {
           const noteStartDate = new Date(note.startDate);
           const noteEndDate = new Date(note.endDate);
-          const selected = selectedDate
-            ? subDays(startOfDay(selectedDate), -1)
-            : startOfDay(new Date());
+          const selectedStartDate = startOfDay(selectedDate);
+          const selectedEndDate = endOfDay(selectedDate);
 
           return (
-            note.userId === user!.id &&
-            isWithinInterval(selected, {
+            (note.userId === user!.id &&
+              isWithinInterval(selectedStartDate, {
+                start: noteStartDate,
+                end: noteEndDate,
+              })) ||
+            isWithinInterval(selectedEndDate, {
               start: noteStartDate,
-              end: endOfDay(noteEndDate),
+              end: noteEndDate,
             })
           );
         });
@@ -112,6 +115,31 @@ const HomePage: React.FC = () => {
     setIsAddNoteModalOpen(!isAddNoteModalOpen);
   };
 
+  const handleSubmitNote = async (noteData: any) => {
+    try {
+      const response = await fetch(`${apiURL}note`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(noteData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add note");
+      }
+
+      const newNote = await response.json();
+      console.log(newNote.message);
+
+      setNotes((prevNotes) => [...prevNotes, newNote.note]);
+      setAllNotes((prevNotes) => [...prevNotes, newNote.note]);
+      setIsAddNoteModalOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="planner">
       <div className="notes">
@@ -130,7 +158,11 @@ const HomePage: React.FC = () => {
       </div>
       {isAddNoteModalOpen && (
         <div className="modal">
-          <AddNoteModal handleAddNote={handleAddNote} />
+          <AddNoteModal
+            handleAddNote={handleAddNote}
+            handleSubmitNote={handleSubmitNote}
+            user={user}
+          />
         </div>
       )}
     </div>

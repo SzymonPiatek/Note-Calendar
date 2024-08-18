@@ -15,6 +15,8 @@ import {
   getDay,
   isBefore,
   startOfDay,
+  endOfDay,
+  addDays,
 } from "date-fns";
 import { pl } from "date-fns/locale";
 import { Heading } from "../heading/Heading";
@@ -40,14 +42,22 @@ interface CalendarProps {
 
 export const Calendar = ({ onDateSelect, notes = [] }: CalendarProps) => {
   const containerClass = clsx(containerVariants());
-
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const notesDates = useMemo(() => {
     const dateMap = new Set<string>();
     notes.forEach((note) => {
-      const noteDate = startOfDay(new Date(note.startDate));
-      dateMap.add(format(noteDate, "yyyy-MM-dd"));
+      const noteStartDate = startOfDay(new Date(note.startDate));
+      const noteEndDate = endOfDay(new Date(note.endDate));
+      let currentDate = noteStartDate;
+
+      while (
+        isBefore(currentDate, noteEndDate) ||
+        isSameDay(currentDate, noteEndDate)
+      ) {
+        dateMap.add(format(currentDate, "yyyy-MM-dd"));
+        currentDate = addDays(currentDate, 1);
+      }
     });
     return dateMap;
   }, [notes]);
