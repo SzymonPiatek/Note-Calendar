@@ -80,6 +80,13 @@ export const AddNoteModal = ({
     handleSubmitNote(formattedData);
   };
 
+  const handleSelectChange = (name: string) => (value: string) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <div className={`modal--container ${containerClass}`}>
       <div className="flex justify-between items-end">
@@ -129,35 +136,38 @@ export const AddNoteModal = ({
           label="Kategoria"
           name="category"
           value={formData.category}
-          onChange={handleChange}
+          onChange={handleSelectChange("category")}
           required
           options={Object.values(Category).map((cat) => ({
             value: cat,
             label: categoryDisplay[cat],
           }))}
         />
+
         <Select
           label="Status"
           name="status"
           value={formData.status}
-          onChange={handleChange}
+          onChange={handleSelectChange("status")}
           required
           options={Object.values(Status).map((stat) => ({
             value: stat,
             label: statusDisplay[stat],
           }))}
         />
+
         <Select
           label="Stopień ważności"
           name="level"
           value={formData.level}
-          onChange={handleChange}
+          onChange={handleSelectChange("level")}
           required
           options={Object.values(Level).map((lvl) => ({
             value: lvl,
             label: levelDisplay[lvl],
           }))}
         />
+
         <Button label="Dodaj" variant="primary" size="medium" type="submit" />
       </form>
     </div>

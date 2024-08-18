@@ -81,7 +81,7 @@ export const Input = ({
     <div className={containerClass}>
       <label className={labelClass} htmlFor={name}>
         {label}
-        {required && <span className="text-primary-500">*</span>}
+        {required && <span className="text-primary-700">*</span>}
       </label>
       <input
         className={inputClass}
