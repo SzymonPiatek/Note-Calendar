@@ -27,15 +27,18 @@ const HomePage: React.FC = () => {
         const filteredNotes = data.notes.filter((note: BetterNoteType) => {
           const noteStartDate = new Date(note.startDate);
           const noteEndDate = new Date(note.endDate);
-          const selected = selectedDate
-            ? subDays(startOfDay(selectedDate), -1)
-            : startOfDay(new Date());
+          const selectedStartDate = startOfDay(selectedDate);
+          const selectedEndDate = endOfDay(selectedDate);
 
           return (
-            note.userId === user!.id &&
-            isWithinInterval(selected, {
+            (note.userId === user!.id &&
+              isWithinInterval(selectedStartDate, {
+                start: noteStartDate,
+                end: noteEndDate,
+              })) ||
+            isWithinInterval(selectedEndDate, {
               start: noteStartDate,
-              end: endOfDay(noteEndDate),
+              end: noteEndDate,
             })
           );
         });
