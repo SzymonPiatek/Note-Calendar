@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 
-export const containerVariants = cva(["w-full"]);
+export const containerVariants = cva(["w-full relative"]);
 
 export const inputVariants = cva(
   [
@@ -27,18 +27,21 @@ export const inputVariants = cva(
   }
 );
 
-export const labelVariants = cva(["text-shadow-900", "dark:text-light-100"], {
-  variants: {
-    size: {
-      small: ["text-xs", "px-1"],
-      medium: ["text-sm", "px-1"],
-      large: ["text-lg", "px-1"],
+export const labelVariants = cva(
+  ["bg-inherit", "text-shadow-900", "dark:text-light-100"],
+  {
+    variants: {
+      size: {
+        small: ["text-xs", "px-1"],
+        medium: ["text-sm", "px-1"],
+        large: ["text-lg", "px-1"],
+      },
     },
-  },
-  defaultVariants: {
-    size: "medium",
-  },
-});
+    defaultVariants: {
+      size: "medium",
+    },
+  }
+);
 
 type InputVariants = VariantProps<typeof inputVariants>;
 
@@ -76,7 +79,10 @@ export const Input = ({
 
   return (
     <div className={containerClass}>
-      <label className={labelClass}>{label}</label>
+      <label className={labelClass} htmlFor={name}>
+        {label}
+        {required && <span className="text-primary-500">*</span>}
+      </label>
       <input
         className={inputClass}
         disabled={disabled}

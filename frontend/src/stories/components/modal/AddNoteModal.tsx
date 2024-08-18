@@ -122,6 +122,7 @@ export const AddNoteModal = ({
           type="datetime-local"
           onChange={handleChange}
           value={formData.endDate}
+          required
         />
         <label>Kategoria</label>
         <select
