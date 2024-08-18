@@ -99,7 +99,10 @@ export const AddNoteModal = ({
         />
       </div>
       <hr />
-      <form className="flex flex-col gap-4" onSubmit={handleFormSubmit}>
+      <form
+        className="flex flex-col gap-6 overflow-y-auto"
+        onSubmit={handleFormSubmit}
+      >
         <Input
           label="Nazwa"
           name="name"
@@ -116,22 +119,24 @@ export const AddNoteModal = ({
           value={formData.description}
           required
         />
-        <Input
-          label="Data początkowa"
-          name="startDate"
-          type="datetime-local"
-          onChange={handleChange}
-          value={formData.startDate}
-          required
-        />
-        <Input
-          label="Data końcowa"
-          name="endDate"
-          type="datetime-local"
-          onChange={handleChange}
-          value={formData.endDate}
-          required
-        />
+        <div className="grid grid-cols-2 gap-2">
+          <Input
+            label="Data początkowa"
+            name="startDate"
+            type="datetime-local"
+            onChange={handleChange}
+            value={formData.startDate}
+            required
+          />
+          <Input
+            label="Data końcowa"
+            name="endDate"
+            type="datetime-local"
+            onChange={handleChange}
+            value={formData.endDate}
+            required
+          />
+        </div>
         <Select
           label="Kategoria"
           name="category"
