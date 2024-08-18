@@ -46,8 +46,8 @@ export const Calendar = ({ onDateSelect, notes = [] }: CalendarProps) => {
   const notesDates = useMemo(() => {
     const dateMap = new Set<string>();
     notes.forEach((note) => {
-      const noteDate = startOfDay(new Date(note.startDate));
-      dateMap.add(format(noteDate, "yyyy-MM-dd"));
+      // const noteDate = startOfDay(new Date(note.startDate));
+      // dateMap.add(format(noteDate, "yyyy-MM-dd"));
     });
     return dateMap;
   }, [notes]);

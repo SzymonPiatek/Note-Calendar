@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 
-export const containerVariants = cva(["w-full", "relative"]);
+export const containerVariants = cva(["w-full"]);
 
 export const inputVariants = cva(
   [
@@ -27,35 +27,26 @@ export const inputVariants = cva(
   }
 );
 
-export const labelVariants = cva(
-  [
-    "absolute",
-    "inset-x-0",
-    "bottom-0",
-    "-z-10",
-    "text-shadow-900",
-    "dark:text-light-100",
-  ],
-  {
-    variants: {
-      size: {
-        small: ["text-xs", "px-1", "-top-4"],
-        medium: ["text-sm", "px-1", "-top-5"],
-        large: ["text-lg", "px-1", "-top-6"],
-      },
+export const labelVariants = cva(["text-shadow-900", "dark:text-light-100"], {
+  variants: {
+    size: {
+      small: ["text-xs", "px-1"],
+      medium: ["text-sm", "px-1"],
+      large: ["text-lg", "px-1"],
     },
-    defaultVariants: {
-      size: "medium",
-    },
-  }
-);
+  },
+  defaultVariants: {
+    size: "medium",
+  },
+});
 
 type InputVariants = VariantProps<typeof inputVariants>;
 
 type InputProps = InputVariants & {
   label: string;
+  name?: string;
   value?: string;
-  onChange?: React.Dispatch<React.SetStateAction<string>>;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   required?: boolean;
   placeholder?: string;
@@ -64,6 +55,7 @@ type InputProps = InputVariants & {
 
 export const Input = ({
   label,
+  name,
   size = "medium",
   disabled = false,
   required = false,
@@ -78,22 +70,23 @@ export const Input = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
-      onChange(e.target.value);
+      onChange(e);
     }
   };
 
   return (
     <div className={containerClass}>
+      <label className={labelClass}>{label}</label>
       <input
         className={inputClass}
         disabled={disabled}
         required={required}
+        name={name}
         type={type}
         value={value}
         onChange={handleChange}
         {...(props as ComponentPropsWithoutRef<"input">)}
       />
-      <label className={labelClass}>{label}</label>
     </div>
   );
 };
