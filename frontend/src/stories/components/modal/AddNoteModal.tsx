@@ -14,6 +14,7 @@ import {
   statusDisplay,
 } from "../../../utils/note";
 import { UserType } from "../../../utils/modelsTypes";
+import { Select } from "../select/Select";
 
 export const containerVariants = cva([
   "rounded-xl",
@@ -124,54 +125,39 @@ export const AddNoteModal = ({
           value={formData.endDate}
           required
         />
-        <label>Kategoria</label>
-        <select
+        <Select
+          label="Kategoria"
           name="category"
           value={formData.category}
           onChange={handleChange}
           required
-        >
-          <option value="" disabled>
-            Wybierz kategorię
-          </option>
-          {Object.values(Category).map((cat) => (
-            <option key={cat} value={cat}>
-              {categoryDisplay[cat]}
-            </option>
-          ))}
-        </select>
-        <label>Status</label>
-        <select
+          options={Object.values(Category).map((cat) => ({
+            value: cat,
+            label: categoryDisplay[cat],
+          }))}
+        />
+        <Select
+          label="Status"
           name="status"
           value={formData.status}
           onChange={handleChange}
           required
-        >
-          <option value="" disabled>
-            Wybierz status
-          </option>
-          {Object.values(Status).map((stat) => (
-            <option key={stat} value={stat}>
-              {statusDisplay[stat]}
-            </option>
-          ))}
-        </select>
-        <label>Stopień ważności</label>
-        <select
+          options={Object.values(Status).map((stat) => ({
+            value: stat,
+            label: statusDisplay[stat],
+          }))}
+        />
+        <Select
+          label="Stopień ważności"
           name="level"
           value={formData.level}
           onChange={handleChange}
           required
-        >
-          <option value="" disabled>
-            Wybierz stopień ważności
-          </option>
-          {Object.values(Level).map((lvl) => (
-            <option key={lvl} value={lvl}>
-              {levelDisplay[lvl]}
-            </option>
-          ))}
-        </select>
+          options={Object.values(Level).map((lvl) => ({
+            value: lvl,
+            label: levelDisplay[lvl],
+          }))}
+        />
         <Button label="Dodaj" variant="primary" size="medium" type="submit" />
       </form>
     </div>
