@@ -141,7 +141,7 @@ export const Select = ({
         {...(props as any)}
       >
         {options.find((option) => option.value === selectedValue)?.label ||
-          `Wybierz ${label.toLowerCase()}`}
+          `Wybierz`}
       </div>
       {isOpen && (
         <div className={dropdownClass}>
