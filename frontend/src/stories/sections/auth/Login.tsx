@@ -39,16 +39,29 @@ export const Login = ({ onSubmit, emailState, passwordState }: LoginProps) => {
   const containerClass = clsx(containerVariants());
   const formClass = clsx(formVariants());
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    emailState(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    passwordState(e.target.value);
+  };
+
   return (
     <div className={containerClass}>
-      <Heading children="Logowanie" size={2} />
+      <Heading size={2}>Logowanie</Heading>
       <form className={formClass} onSubmit={onSubmit}>
-        <Input size="medium" type="text" label="e-mail" onChange={emailState} />
+        <Input
+          size="medium"
+          type="text"
+          label="e-mail"
+          onChange={handleEmailChange}
+        />
         <Input
           size="medium"
           type="password"
           label="password"
-          onChange={passwordState}
+          onChange={handlePasswordChange}
         />
         <Button size="large" variant="primary" label="Zaloguj się" />
       </form>
